@@ -1,0 +1,129 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 20px 0px; */
+    padding: 20px 0px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: bolder;
+    color: tomato;
+}
+
+
+.navbar-right{
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.navbar button{
+   background: transparent;
+   font-size: 16px;
+   border: 1px solid tomato;
+   padding: 10px 30px;
+   border-radius: 50px;
+   cursor: pointer;
+   color: #49557e;
+
+   transition: .6s;
+}
+.navbar button:hover{
+    background-color: tomato;
+    color: white;
+}
+
+.navbar-menu .active{
+    border-bottom: 2px solid #49557e;
+}
+
+.navbar-search-icon{
+    position: relative;
+    cursor: pointer;
+}
+.navbar-search-icon .dot{
+    min-width: 12px;
+    min-height: 12px;
+    border-radius: 50%;
+    background-color: tomato;
+
+    position: absolute;
+    top: -4px;
+    right: -6px;
+}
+
+.navbar-profile{
+    position: relative;
+}
+.profile-icon{
+    cursor: pointer;
+}
+.navbar-profile-dropdown{
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 1;
+
+    list-style: none;
+    cursor: pointer;
+}
+
+.navbar-profile:hover .navbar-profile-dropdown{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: whitesmoke;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: 1px solid tomato;
+    outline: 2px solid white
+}
+
+.navbar-profile-dropdown li{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.navbar-profile-dropdown img{
+    width: 20px;
+}
+.navbar-profile-dropdown li:hover{
+    color: tomato;
+}
+
+/* ----------------------------------------------- */
+@media (max-width: 1050px) {
+    .navbar .logo{
+        width: 120px;
+    }
+    .navbar-menu{
+        font-size: 16px;
+    }
+    .navbar-right img{
+        width: 20px;
+    }
+    .navbar-right button{
+       padding: 8px 20px;
+    }
+}
+
+@media (max-width: 750px) {
+    .navbar .logo{
+        width: 100px;
+    }
+    .navbar-menu{
+        display: none;
+    }
+    .navbar-right button{
+        padding: 4px 16px;
+     }
+}

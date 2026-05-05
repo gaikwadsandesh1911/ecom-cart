@@ -1,0 +1,32 @@
+.main-section {
+  padding: 20px;
+  display: flex;
+  height: calc(100vh - 70px); /* full height minus navbar */
+  overflow: hidden; /* prevent whole page scroll */
+}
+
+.sidebar {
+  width: 180px;
+  height: 100%;
+  overflow-y: auto; /* optional: if sidebar content is long */
+  position: sticky;
+  top: 70px; /* stick below navbar */
+  scrollbar-width: none; /* Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.main {
+  flex: 1;
+  padding: 0 20px;
+  height: 100%;
+  overflow-y: auto; /* 👈 only this scrolls */
+  padding: 20px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.main::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

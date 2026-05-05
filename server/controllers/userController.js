@@ -1,0 +1,97 @@
+import { User } from "../models/userModel.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import validator from "validator";
+import { asyncErrorHandler } from "../utils/asynchErrorHandller.js";
+import { CustomError } from "../utils/CustomeError.js";
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+const generateJwtToken = (userId, userEmail, userRole) => {
+  return jwt.sign(
+    { userId: userId, userEmail: userEmail, userRole: userRole },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
+// register user
+const registerUser = asyncErrorHandler(async (req, res, next) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return next(new CustomError("Please provide all fields", 400));
+  }
+
+  // if user already exist
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    return next(new CustomError("user with email is already exist", 409));
+  }
+
+  // validate email
+  if (!validator.isEmail(email)) {
+    const error = new CustomError("Please enter valid email address", 400);
+    return next(error);
+  }
+
+  // validate password
+  if (password.length < 6) {
+    return next(new CustomError("Password should be 6 char long", 400));
+  }
+
+  // hashing password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = new User({
+    name,
+    email,
+    password: hashedPassword,
+  });
+
+  const user = await newUser.save();
+
+  // generate jsonwebtoken
+  const token = generateJwtToken(user._id, user.email, user.role);
+
+  return res.status(201).json({
+    success: true,
+    message: "user created successfully",
+    token,
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------
+//login user
+const loginUser = asyncErrorHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new CustomError("Please provide all fields", 400));
+  }
+
+  // check user
+  const user = await User.findOne({ email });
+  
+  if (!user) {
+    return next(new CustomError("Invalid email or password", 401));
+  }
+
+  // compare hashed password
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return next(new CustomError("Invalid email or password", 401));
+  }
+
+  const token = generateJwtToken(user._id, user.email, user.role);
+
+  return res.status(200).json({
+    success: true,
+    message: "login successful",
+    token,
+  });
+});
+
+export { loginUser, registerUser };

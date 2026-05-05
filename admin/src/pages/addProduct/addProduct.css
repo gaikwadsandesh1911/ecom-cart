@@ -1,0 +1,78 @@
+.add-product{
+    font-size: 16px;
+    color: #6d6d6d;
+}
+
+.add-product form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-img-upload img{
+   width: 120px;
+   object-fit: cover;
+   cursor: pointer;
+}
+.add-img-upload label{
+    width: max-content;
+}
+
+.add-product-name, .add-product-description{
+    width: max(40%, 280px);
+}
+.add-product-description textarea{
+    resize: none;
+}
+
+.add-product-name input, .add-product-description textarea{
+   padding: 8px;
+   outline: none;
+}
+
+.add-category-price{
+    display: flex;
+    gap: 10px;
+}
+
+.add-category-price select, .add-category-price input, .add-stock input{
+    width: 135px;
+    padding: 8px;
+    outline: none;
+}
+
+.add-btn{
+    width: max(40%, 280px);
+    outline: none;
+    border: none;
+    padding: 10px;
+    background-color: tomato;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+form span.error{
+    color: red;
+    margin-top: -16px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* ------------------------------------ */
+
+@media (max-width: 750px) {
+    .add-product-name, .add-product-description{
+        width: 260px;
+    }
+    .add-category-price{
+        display: flex;
+        flex-direction: column;
+    }
+    .add-category-price select, .add-category-price input{
+        width: 260px;
+    }
+    .add-btn{
+        width: 260px;
+    }
+}
