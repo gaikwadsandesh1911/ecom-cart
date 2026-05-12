@@ -2,21 +2,22 @@ import './Navbar.css';
 import { assets } from '../../assets/assets.js';
 import { useContext} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { StoreContext } from '../../context/StoreContext.jsx';
+import { UserContext } from '../../context/context.js';
 
-// eslint-disable-next-line react/prop-types
+
 const Navbar = ({setShowLogin}) => {
     
     // const [navmenu, setNavmenu] = useState("home")
 
-    const {token, setToken, cartTotalAmount, setCartItems } = useContext(StoreContext);
+    // const {token, setToken, cartTotalAmount, setCartItems } = useContext(StoreContext);
+
+    const { token, setToken} = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const logout = ()=>{
        localStorage.removeItem("token");
        setToken("")
-       setCartItems({})
        navigate("/")
     }
 
@@ -31,7 +32,7 @@ const Navbar = ({setShowLogin}) => {
             {/* <img src={assets.search_icon} alt="" /> */}
             <div className="navbar-search-icon">
                 <Link to="/cart"><img src={assets.basket_icon} alt="" /></Link>
-                <div className={cartTotalAmount() > 0 ? "dot" : ""}></div>
+                {/* <div className={cartTotalAmount() > 0 ? "dot" : ""}></div> */}
             </div>
             {
                 !token

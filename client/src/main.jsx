@@ -8,11 +8,13 @@ import UserContextProvider from "./context/userContext/UserContextProvider.jsx";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import CartContextProvider from "./context/cartContext/CartContextProvider.jsx";
 export const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <UserContextProvider>
+      <CartContextProvider>
       <BrowserRouter>
         <App />
         <ToastContainer
@@ -29,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           transition={Bounce}
         />
       </BrowserRouter>
+      </CartContextProvider>
     </UserContextProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,

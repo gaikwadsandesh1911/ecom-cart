@@ -10,19 +10,19 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct";
 
 const App = () => {
-  const { token } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<Navigate to={token ? "/admin" : "/login"} />}
+          element={<Navigate to={isAuthenticated ? "/admin" : "/login"} />}
         />
         {/* Login */}
         <Route
           path="/login"
-          element={!token ? <Login /> : <Navigate to="/admin" />}
+          element={!isAuthenticated ? <Login /> : <Navigate to="/admin" />}
         />
         <Route
           path="/admin"

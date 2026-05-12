@@ -7,15 +7,25 @@ import { CustomError } from "../utils/CustomeError.js";
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+const cookieOptions = {
+  httpOnly: true, // JS can't access it — XSS safe
+  secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+  sameSite: "strict", // CSRF protection
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+};
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 const generateJwtToken = (userId, userEmail, userRole) => {
   return jwt.sign(
     { userId: userId, userEmail: userEmail, userRole: userRole },
     process.env.JWT_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: "7d" },
   );
 };
 
 // ---------------------------------------------------------------------------------------------------------------------
+
 // register user
 const registerUser = asyncErrorHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -56,14 +66,18 @@ const registerUser = asyncErrorHandler(async (req, res, next) => {
   // generate jsonwebtoken
   const token = generateJwtToken(user._id, user.email, user.role);
 
+  res.cookie("token", token, cookieOptions);
+
   return res.status(201).json({
     success: true,
     message: "user created successfully",
     token,
+    user
   });
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
+
 //login user
 const loginUser = asyncErrorHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -74,24 +88,49 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
 
   // check user
   const user = await User.findOne({ email });
-  
+
   if (!user) {
     return next(new CustomError("Invalid email or password", 401));
   }
 
   // compare hashed password
   const isMatch = await bcrypt.compare(password, user.password);
+
   if (!isMatch) {
     return next(new CustomError("Invalid email or password", 401));
   }
 
   const token = generateJwtToken(user._id, user.email, user.role);
 
+  res.cookie("token", token, cookieOptions);
+
   return res.status(200).json({
     success: true,
     message: "login successful",
     token,
+    user
   });
 });
 
-export { loginUser, registerUser };
+// ---------------------------------------------------------------------------------------------------------------------
+
+const getCurrentUser = asyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req?.userId).select("-password");
+  return res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+const logoutUser = asyncErrorHandler(async (req, res, next) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  return res.status(200).json({ success: true, message: "logged out" });
+});
+
+export { loginUser, registerUser, getCurrentUser, logoutUser };

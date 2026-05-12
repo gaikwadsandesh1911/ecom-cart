@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import "./login.css";
 import { toast } from "react-toastify";
-import { axiosInstance } from "../../api/axiosInstance";
 import { useNavigate } from 'react-router-dom'
 
-import { jwtDecode } from "jwt-decode";
+
 import { AuthContext } from "../../context/authContext";
 
 function Login() {
@@ -14,9 +13,11 @@ function Login() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   
-  const {login} = useContext(AuthContext);
+  const {login, logout} = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,17 +30,14 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axiosInstance.post(`/api/user/login`, formData);
-      console.log("login response", data);
-      const decoded = jwtDecode(data?.token);
-      console.log('decoded', decoded)
-      if(decoded.userRole !== "admin"){
-        setFormData({email: "", password: ""})
-        toast.error("Only Admin can login here!")
-        navigate("/")
+      setLoading(true);
+      const res = await login(formData.email, formData.password);
+      console.log('loginform...', res);
+      if(res?.data?.user?.role != "admin"){
+        await logout();
         return
       }
-      login(data?.token)
+      toast.success(res?.data?.message || "Login successful")
       navigate("/admin");
       setFormData({
         email: "",
@@ -50,6 +48,9 @@ function Login() {
       // backend error messages
       console.log("login error", message);
       toast.error(message);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -78,7 +79,7 @@ function Login() {
             />
           </div>
           <div>
-            <button type="submit">Login</button>
+            <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
           </div>
         </form>
       </div>

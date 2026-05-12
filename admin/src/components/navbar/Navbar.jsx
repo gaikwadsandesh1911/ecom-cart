@@ -4,14 +4,17 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-
-  const { token, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    logout();
-    navigate("/");
+  const logoutHandler = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.log("logout error", error);
+    }
   };
 
   return (
@@ -20,9 +23,11 @@ const Navbar = () => {
         <h1>Ecom cart</h1>
         <p>admin</p>
       </div>
-      {token && (
+      {isAuthenticated && (
         <div>
-          <button onClick={logoutHandler} className="logout-btn">Logout</button>
+          <button onClick={logoutHandler} className="logout-btn">
+            Logout
+          </button>
         </div>
       )}
     </div>

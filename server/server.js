@@ -11,6 +11,7 @@ import orderRouter from "./routes/orderRoutes.js";
 import http from "http";
 import { Server } from "socket.io";
 import { getOrderStatus } from "./socket/orderStatus.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -18,7 +19,16 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // user frontend
+      "http://localhost:5174", // admin frontend
+    ],
+    credentials: true,
+  }),
+);
+app.use(cookieParser());
 
 const port = process.env.PORT || 8000;
 
