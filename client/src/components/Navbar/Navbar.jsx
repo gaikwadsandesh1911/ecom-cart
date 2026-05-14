@@ -1,55 +1,74 @@
-import './Navbar.css';
-import { assets } from '../../assets/assets.js';
-import { useContext} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import { UserContext } from '../../context/context.js';
+import "./Navbar.css";
+import { assets } from "../../assets/assets.js";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { clearUser } from "../../features/auth/authSlice.js";
+import { useMutation } from "@tanstack/react-query";
+import { logoutUser } from "../../api/userApi.js";
+import { toast } from "react-toastify";
 
+const Navbar = () => {
+  const navigate = useNavigate();
 
-const Navbar = ({setShowLogin}) => {
-    
-    // const [navmenu, setNavmenu] = useState("home")
+  const dispatch = useDispatch();
 
-    // const {token, setToken, cartTotalAmount, setCartItems } = useContext(StoreContext);
+  const { mutate: logout } = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: (data) => {
+      // console.log("logout data =>", data);
+      // clear redux
+      dispatch(clearUser());
+      toast.success(data.message);
+      navigate("/");
+    },
+    onError: (error) => {
+      console.log("logout error =>", error);
+      toast.error(error);
+    },
+  });
 
-    const { token, setToken} = useContext(UserContext);
-
-    const navigate = useNavigate();
-
-    const logout = ()=>{
-       localStorage.removeItem("token");
-       setToken("")
-       navigate("/")
-    }
+  const { isAuthenticated } = useSelector((store) => store.auth);
 
   return (
-    <div className='navbar'>
+    <div className="navbar">
+      <div className="navbar__logo">
+        <Link to="/" className="logo">
+          EcomCart
+        </Link>
+      </div>
 
-        <div className='navbar__logo'>
-            <Link to="/" className='logo'>EcomCart</Link>
-        </div>
-
+      {isAuthenticated ? (
         <div className="navbar-right">
-            {/* <img src={assets.search_icon} alt="" /> */}
-            <div className="navbar-search-icon">
-                <Link to="/cart"><img src={assets.basket_icon} alt="" /></Link>
-                {/* <div className={cartTotalAmount() > 0 ? "dot" : ""}></div> */}
-            </div>
-            {
-                !token
-                    ?   <button onClick={()=>setShowLogin(true)}>sign in</button>
-                    :   <div className='navbar-profile'>
-                            <img src={assets.profile_icon} alt="" className='profile-icon'/>
-                            <ul className='navbar-profile-dropdown'>
-                                <li onClick={()=>navigate('/my-orders')}><img src={assets.bag_icon} alt="" /><p>Orders</p></li>
-                                <hr />
-                                <li onClick={logout}><img src={assets.logout_icon} alt="" /><p>Logout</p></li>
-                            </ul>
-                        </div>
-            }
+          <div className="navbar-search-icon">
+            <Link to="/cart">
+              <img src={assets.basket_icon} alt="" />
+            </Link>
+            {/* <div className={cartTotalAmount() > 0 ? "dot" : ""}></div> */}
+          </div>
+
+          <div className="navbar-profile">
+            <img src={assets.profile_icon} alt="" className="profile-icon" />
+            <ul className="navbar-profile-dropdown">
+              <li onClick={() => navigate("/my-orders")}>
+                <img src={assets.bag_icon} alt="" />
+                <p>Orders</p>
+              </li>
+              <hr />
+
+              <li onClick={logout}>
+                <img src={assets.logout_icon} alt="" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
         </div>
-
+      ) : (
+        <div>
+          <button onClick={() => navigate("/login")}>Login</button>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

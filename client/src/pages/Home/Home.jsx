@@ -1,4 +1,4 @@
-import Header from "../../components/Header/Header";
+
 import "./home.css";
 import { useEffect } from "react";
 import ProductDisplay from "../../components/productDisplay/ProductDisplay";
@@ -12,7 +12,6 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
       <ProductDisplay/>
     </div>
   );

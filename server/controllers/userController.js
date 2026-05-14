@@ -10,7 +10,7 @@ import { CustomError } from "../utils/CustomeError.js";
 const cookieOptions = {
   httpOnly: true, // JS can't access it — XSS safe
   secure: process.env.NODE_ENV === "production", // HTTPS only in prod
-  sameSite: "strict", // CSRF protection
+  // sameSite: "strict", // CSRF protection
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
 };
 
@@ -66,13 +66,15 @@ const registerUser = asyncErrorHandler(async (req, res, next) => {
   // generate jsonwebtoken
   const token = generateJwtToken(user._id, user.email, user.role);
 
+  const { password: hashed_Password, createdAt, updatedAt, role, __v, ...safeUser } = user.toObject();
+
   res.cookie("token", token, cookieOptions);
 
   return res.status(201).json({
     success: true,
     message: "user created successfully",
     token,
-    user
+    user: safeUser
   });
 });
 
@@ -104,21 +106,24 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
 
   res.cookie("token", token, cookieOptions);
 
+  const { password: hashedPassword, createdAt, updatedAt, role, __v, ...safeUser } = user.toObject();
+
   return res.status(200).json({
     success: true,
     message: "login successful",
     token,
-    user
+    user: safeUser
   });
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
 
 const getCurrentUser = asyncErrorHandler(async (req, res, next) => {
-  const user = await User.findById(req?.userId).select("-password");
+  const user = await User.findById(req?.userId);
+  const { password, createdAt, updatedAt, role, __v, ...safeUser } = user.toObject();
   return res.status(200).json({
     success: true,
-    user,
+    user: safeUser,
   });
 });
 
@@ -128,7 +133,7 @@ const logoutUser = asyncErrorHandler(async (req, res, next) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    // sameSite: "strict",
   });
   return res.status(200).json({ success: true, message: "logged out" });
 });

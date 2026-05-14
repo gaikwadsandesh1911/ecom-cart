@@ -1,15 +1,7 @@
-import { useContext, useEffect, useState } from "react";
 import "./placeOrder.css";
-import { StoreContext } from "../../context/StoreContext";
-import axios from "axios";
-import {toast} from 'react-toastify'
-import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 const PlaceOrder = () => {
-
-  const { cartTotalAmount, token, food_list, cartItems, backendUrl } = useContext(StoreContext);
-
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -48,59 +40,14 @@ const PlaceOrder = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-   // --------------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------
 
-  const handleSubmit = async(e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const isValidForm = validateForm();
 
-    if(isValidForm){
-      // Call API
-      let orderItems = []; 
-
-      food_list && (
-        food_list.map((item)=>{
-          if(cartItems[item._id] > 0){
-            let itemInfo = item;
-            // on itemInfo added new property quantity
-            itemInfo.quantity = cartItems[item._id];    // cartItems[item._id] stores quantity of perticular product in cartData
-            orderItems.push(itemInfo)
-          }
-        })
-      )
-      // console.log('orderItems', orderItems)
-
-      let orderData = {
-        address : userData,
-        items: orderItems,
-        amount: cartTotalAmount() + 2
-      }
-      // console.log('orderData', orderData)
-
-      try {
-        const {data} = await axios.post(`${backendUrl}/api/order/place-order`, orderData, {
-          headers: {
-            token: `Bearer ${token}`
-          }
-        })
-        console.log('stripe session data', data)
-
-        if(data.status == 'success'){
-          toast.success(data.message)
-          const {session_url} = data;
-          window.location.replace(session_url)
-           // redirect to stripe checkout page. to pay search for stripe dummy card
-        }
-        else{
-          toast.error("something went wrong while placing order")
-        }
-
-      } catch (error) {
-        console.log(error)
-      }
-
+    if (isValidForm) {
       // clear user form
       setUserData({
         firstName: "",
@@ -113,27 +60,13 @@ const PlaceOrder = () => {
         country: "",
         phone: "",
       });
-
     }
-
   };
 
-// --------------------------------------------------------------------------------------------------
-
-const navigate = useNavigate();
-
-  useEffect(()=>{
-    if(!token){
-      navigate("/")
-    }
-    else if(cartTotalAmount() == 0){
-      navigate("/")
-    }
-  },[token, navigate, cartTotalAmount])
+  // --------------------------------------------------------------------------------------------------
 
   return (
     <form className="place-order" onSubmit={handleSubmit}>
-
       <div className="place-order-left">
         <p className="title">Delivery Information</p>
 
@@ -220,9 +153,7 @@ const navigate = useNavigate();
           onChange={handleChange}
           required
         />
-        {errors.phone && (
-          <span className="error">{errors.phone}</span>
-        )}
+        {errors.phone && <span className="error">{errors.phone}</span>}
       </div>
 
       <div className="place-order-right">
@@ -231,25 +162,24 @@ const navigate = useNavigate();
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${cartTotalAmount()}</p>
+              <p></p>
             </div>
             <hr />
 
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${cartTotalAmount() === 0 ? 0 : 2}</p>
+              <p></p>
             </div>
             <hr />
 
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${cartTotalAmount() === 0 ? 0 : cartTotalAmount() + 2}</b>
+              <b></b>
             </div>
           </div>
           <button type="submit">Proceed to checkout</button>
         </div>
       </div>
-
     </form>
   );
 };
