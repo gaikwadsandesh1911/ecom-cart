@@ -7,7 +7,7 @@ import { CustomError } from "../utils/CustomeError.js";
 
 const addProduct = asyncErrorHandler(async (req, res, next) => {
   
-  const { name, description, price, category, stock } = req.body;
+  const { name, description, price, category, stock, discount } = req.body;
 
   const product = await Product.create({
     name,
@@ -15,6 +15,7 @@ const addProduct = asyncErrorHandler(async (req, res, next) => {
     price,
     category,
     stock,
+    discount,
     image: {
       url: req.file.path, // cloudinary URL
       publicId: req.file.filename, // cloudinary public_id
@@ -23,7 +24,7 @@ const addProduct = asyncErrorHandler(async (req, res, next) => {
 
   return res.status(201).json({
     success: true,
-    message: "Product added successfully.",
+    message: "Product created successfully.",
     product,
   });
 });
@@ -56,11 +57,11 @@ const productList = asyncErrorHandler(async (req, res, next) => {
   const totalPages = Math.ceil(totalDocuments / limit);
 
   const allProducts = await Product.find(query)
-    .select("name price image category stock createdAt")
+    .select("name description price discount image category stock createdAt")
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: -1 })
-    .lean();
+    // .lean({ virtuals: true });
 
   return res.status(200).json({
     success: true,
@@ -130,6 +131,7 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
   product.name = req.body.name || product.name;
   product.description = req.body.description || product.description;
   product.price = req.body.price || product.price;
+  product.discount = req.body.discount || product.price;
   product.category = req.body.category || product.category;
   product.stock = product.stock + Number(req.body.stock) ?? product.stock; // ?? instead of || because stock can be 0
 

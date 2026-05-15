@@ -3,7 +3,7 @@ import { assets } from "../../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../../features/auth/authSlice.js";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutUser } from "../../api/userApi.js";
 import { toast } from "react-toastify";
 
@@ -12,12 +12,20 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
 
+  const queryClient = useQueryClient();
+
   const { mutate: logout } = useMutation({
     mutationFn: logoutUser,
     onSuccess: (data) => {
       // console.log("logout data =>", data);
       // clear redux
       dispatch(clearUser());
+
+      // clear cached current user
+      queryClient.removeQueries({
+        queryKey: ["current-user"],
+      });
+
       toast.success(data.message);
       navigate("/");
     },

@@ -17,6 +17,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: [true, "price is required"],
     },
+    discount: {
+      type: Number,
+      default: 0,
+    },
 
     image: {
       url: {
@@ -31,7 +35,7 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "category is required"],
-      lowercase: true
+      lowercase: true,
     },
     stock: {
       type: Number,
@@ -43,5 +47,12 @@ const productSchema = new mongoose.Schema(
 
 productSchema.index({ category: 1, name: 1 });
 productSchema.index({ createdAt: -1 });
+
+productSchema.virtual("finalPrice").get(function () {
+  return Math.round(this.price - (this.price * this.discount) / 100) ;
+});
+
+productSchema.set("toJSON", { virtuals: true });
+productSchema.set("toObject", { virtuals: true });
 
 export const Product = mongoose.model("Product", productSchema);

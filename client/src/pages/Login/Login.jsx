@@ -11,10 +11,11 @@ import { useDispatch } from "react-redux";
 
 import { setUser } from "../../features/auth/authSlice";
 
+import { useQueryClient } from "@tanstack/react-query";
 
 function Login() {
+  const queryClient = useQueryClient();
 
-  
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -38,10 +39,15 @@ function Login() {
     mutationFn: loginUser,
     onSuccess: (data) => {
       // console.log("loginUser:", data);
-      toast.success(data?.message || "Login successfull.");
 
       // dispatch to redux store
       dispatch(setUser(data.user));
+
+      queryClient.invalidateQueries({
+        queryKey: ["current-user"],
+      });
+
+      toast.success(`welcome ${data?.user?.name}`);
 
       // clear form
       setFormData({

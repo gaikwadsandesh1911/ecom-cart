@@ -19,7 +19,7 @@
 }
 
 .add-product-name, .add-product-description{
-    width: max(40%, 280px);
+    width: max(40%, 320px);
 }
 .add-product-description textarea{
     resize: none;
@@ -35,8 +35,8 @@
     gap: 10px;
 }
 
-.add-category-price select, .add-category-price input, .add-stock input{
-    width: 135px;
+.add-category select, .add-price input, .add-stock input, .add-discount input{
+    width: 150px;
     padding: 8px;
     outline: none;
 }

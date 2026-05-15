@@ -21,11 +21,11 @@
      width: max-content;
  }
 
- .update-name, .update-price, .update-stock{
+ .update-name, .update-price, .update-stock, .update-discount{
     width: max(40%, 280px);
 }
 
-.update-name input, .update-price input, .update-stock input{
+.update-name input, .update-price input, .update-stock input, .update-discount input{
     padding: 8px;
     outline: none;
  }

@@ -5,7 +5,6 @@ import { axiosInstance } from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 
 const UpdateProduct = () => {
-
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -13,7 +12,8 @@ const UpdateProduct = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
-    stock: ""
+    stock: "",
+    discount: "",
   });
 
   const [imagePreview, setImagePreview] = useState(null);
@@ -48,7 +48,8 @@ const UpdateProduct = () => {
           setFormData({
             name: data?.product?.name,
             price: data?.product?.price,
-            stock: data?.product?.stock
+            discount: data?.product?.discount,
+            stock: data?.product?.stock,
           });
           setImagePreview(data?.product?.image?.url);
         }
@@ -80,6 +81,7 @@ const UpdateProduct = () => {
   const data = new FormData();
   data.append("name", formData.name);
   data.append("price", formData.price);
+  data.append("discount", formData.discount);
   data.append("stock", formData.stock);
   data.append("image", newImage);
 
@@ -88,10 +90,10 @@ const UpdateProduct = () => {
     const isValid = formValidation();
     if (isValid) {
       axiosInstance
-        .put(`/api/product/update-product/${id}`, data)
+        .patch(`/api/product/update-product/${id}`, data)
         .then((res) => {
-            // console.log('updated product', res.data.message);
-            toast.success(res.data?.message)
+          // console.log('updated product', res.data.message);
+          toast.success(res.data?.message);
           navigate("/admin/product-list");
         })
         .catch((error) => {
@@ -101,7 +103,8 @@ const UpdateProduct = () => {
       setFormData({
         name: "",
         price: "",
-        stock: ""
+        stock: "",
+        discount: "",
       });
       setImagePreview(null);
       setNewImage(null);
@@ -147,6 +150,20 @@ const UpdateProduct = () => {
             min={10}
             name="price"
             value={formData.price}
+            onChange={handleChange}
+            placeholder=""
+            autoComplete="off"
+            required
+          />
+        </div>
+
+        <div className="update-discount flex-col">
+          <p>Discount</p>
+          <input
+            type="number"
+            min={10}
+            name="discount"
+            value={formData.discount}
             onChange={handleChange}
             placeholder=""
             autoComplete="off"

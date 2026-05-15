@@ -1,22 +1,34 @@
-import { useEffect } from "react";
 import "./productDisplay.css";
-import { axiosInstance } from "../../api/axiosInstance";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchProducts } from "../../api/productApi";
 
 // import ProductCard from "../productCard/ProductCard";
 
 const ProductDisplay = () => {
-  useEffect(() => {
-    const fetchProduct = async() => {
-      try {
-        const res = await axiosInstance.get(`api/product/product-list`);
-        console.log('res', res)
-      } catch (error) {
-        console.log(error)
-      }
-    };
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    status,
+  } = useInfiniteQuery({
+    queryKey: [`products`],
+    queryFn: fetchProducts,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      // here we got actuall backend response at variable lastpage
+      // console.log("lastPage", lastPage)
+      return lastPage.currentPage < lastPage.totalPages
+        ? lastPage.currentPage + 1
+        : undefined;
+    },
+  });
 
-    fetchProduct();
-  }, []);
+  console.log("fetchProduct data", data);
+  const products = data?.pages.flatMap((page) => page.productList);
+  console.log('products', products);
+
   return (
     <div className="product-display" id="product-display">
       <h2 className="top-products">Top Products</h2>

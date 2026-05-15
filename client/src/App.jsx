@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
@@ -19,17 +19,19 @@ import ProtectedRoute from "./route/ProtectedRoute";
 import GuestRoute from "./route/GuestRoute";
 
 const App = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  
+  // const { user, isAuthenticated } = useSelector((state) => state.auth);
   // console.log('auth', user, isAuthenticated)
 
   const dispatch = useDispatch();
 
-  // on refresh of page redux-store lost data because it memory based, but cookie is stored
+  // on refresh of page redux-store data is lost, because it memory based, but cookie is stored
   // so we call current-user
   const { data, isError } = useQuery({
     queryKey: ["current-user"],
     queryFn: getCurrentUser,
     retry: false,
+    staleTime: 0,
   });
   // console.log('data', data);
 
@@ -42,12 +44,17 @@ const App = () => {
     }
   }, [data, dispatch, isError]);
 
+
+  // on login and register route don;t want show navbar
+  const location = useLocation();
+  const hideNavbarRoutes = ["/login", "/register"];
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+
   return (
     <>
       <div className="app">
-        <Navbar />
+        {!shouldHideNavbar && <Navbar />}
         <Routes>
-
           <Route path="/" element={<Home />} />
 
           {/* Guest routes once user login will not manually access login and register route*/}

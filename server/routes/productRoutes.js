@@ -10,7 +10,7 @@ productRouter.get("/product-list", productList);
 productRouter.get('/single-product/:id', singleProduct)
 
 productRouter.post('/add-product', authMiddleware, adminMiddleware, upload.single("image"), addProduct);
-productRouter.put('/update-product/:id', authMiddleware, adminMiddleware, upload.single('image'), updateProduct);
+productRouter.patch('/update-product/:id', authMiddleware, adminMiddleware, upload.single('image'), updateProduct);
 productRouter.delete('/remove-product/:id', authMiddleware, adminMiddleware, removeProduct);
 
 export default productRouter;

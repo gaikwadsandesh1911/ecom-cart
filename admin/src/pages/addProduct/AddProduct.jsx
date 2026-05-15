@@ -3,10 +3,9 @@ import { useState } from "react";
 import "./addProduct.css";
 import { toast } from "react-toastify";
 import { axiosInstance } from "../../api/axiosInstance";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-
   const navigate = useNavigate();
 
   const [imageFile, setImageFile] = useState(null);
@@ -17,6 +16,7 @@ const AddProduct = () => {
     price: "",
     category: "",
     stock: "",
+    discount: "",
   });
 
   // -----------------------------------------------------------------------------------------------------------------
@@ -30,12 +30,11 @@ const AddProduct = () => {
 
   // server loading state
   const [loading, setLoading] = useState(false);
-  
+
   // form validation errors
   const [errors, setErrors] = useState({});
-  
+
   const formValidation = () => {
-    
     let newErrors = {};
 
     if (!imageFile) {
@@ -59,7 +58,6 @@ const AddProduct = () => {
   // -----------------------------------------------------------------------------------------------------------------
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
 
     const isValid = formValidation();
@@ -73,35 +71,34 @@ const AddProduct = () => {
         data.append("category", formData.category);
         data.append("price", Number(formData.price));
         data.append("stock", Number(formData.stock));
+        data.append("discount", Number(formData.discount));
         data.append("image", imageFile);
 
         const res = await axiosInstance.post(`/api/product/add-product`, data);
         console.log("add-product-res =>", res);
 
         if (res.data.success) {
-        toast.success(res.data.message);
-        navigate("/admin/product-list");
-      }
+          toast.success(res.data.message);
+          navigate("/admin/product-list");
+        }
 
-         // reset form after success
-      setFormData({
-        name: "",
-        description: "",
-        price: "",
-        category: "",
-        stock: "",
-      });
-      setImageFile(null);
-
+        // reset form after success
+        setFormData({
+          name: "",
+          description: "",
+          price: "",
+          category: "",
+          stock: "",
+          discount: "",
+        });
+        setImageFile(null);
       } catch (error) {
         console.log("product create error =>", error);
         toast.error(error?.response?.data?.message || "Something went wrong");
-      }
-      finally{
+      } finally {
         setLoading(false);
       }
     }
-
   };
 
   return (
@@ -148,7 +145,7 @@ const AddProduct = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            rows="6"
+            rows="5"
             placeholder="Write description here"
             autoComplete="off"
             required
@@ -158,38 +155,49 @@ const AddProduct = () => {
           <span className="error">{errors.description}</span>
         )}
 
-        <div className="add-category-price">
-          <div className="add-category flex-col">
-            <p>Product category</p>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            >
-              <option value="" hidden readOnly>
-                select category
-              </option>
-              <option value="Phone">Phone</option>
-              <option value="Laptop">Laptop</option>
-              <option value="HeadPhone">HeadPhone</option>
-              <option value="EarBuds">EarBuds</option>
-            </select>
-          </div>
+        <div className="add-category flex-col">
+          <p>Product category</p>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="" hidden readOnly>
+              select category
+            </option>
+            <option value="Phone">Phone</option>
+            <option value="Laptop">Laptop</option>
+            <option value="HeadPhone">HeadPhone</option>
+            <option value="EarBuds">EarBuds</option>
+          </select>
+        </div>
 
-          <div className="add-price flex-col">
-            <p>Product price</p>
-            <input
-              type="number"
-              min={10}
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              placeholder="$20"
-              autoComplete="off"
-              required
-            />
-          </div>
+        <div className="add-price flex-col">
+          <p>Product price</p>
+          <input
+            type="number"
+            min={10}
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="$20"
+            autoComplete="off"
+            required
+          />
+        </div>
+
+        <div className="add-discount flex-col">
+          <p>Discount percentage</p>
+          <input
+            type="number"
+            name="discount"
+            value={formData.discount}
+            onChange={handleChange}
+            placeholder="add discount in %"
+            autoComplete="off"
+            required
+          />
         </div>
 
         <div className="add-stock flex-col">
@@ -206,7 +214,7 @@ const AddProduct = () => {
         </div>
 
         <button type="submit" className="add-btn" disabled={loading}>
-           {loading ? "Adding..." : "Add"}
+          {loading ? "Adding..." : "Add"}
         </button>
       </form>
     </div>

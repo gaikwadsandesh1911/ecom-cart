@@ -106,7 +106,7 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
 
   res.cookie("token", token, cookieOptions);
 
-  const { password: hashedPassword, createdAt, updatedAt, role, __v, ...safeUser } = user.toObject();
+  const { password: hashedPassword, createdAt, updatedAt, __v, ...safeUser } = user.toObject();
 
   return res.status(200).json({
     success: true,
