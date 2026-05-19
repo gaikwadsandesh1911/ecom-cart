@@ -10,13 +10,14 @@ import MyOrders from "./pages/myOrders/MyOrders";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "./api/userApi";
 import { useEffect } from "react";
 import { clearUser, setUser } from "./features/auth/authSlice";
 import ProtectedRoute from "./route/ProtectedRoute";
 import GuestRoute from "./route/GuestRoute";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 
 const App = () => {
   
@@ -56,6 +57,7 @@ const App = () => {
         {!shouldHideNavbar && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
 
           {/* Guest routes once user login will not manually access login and register route*/}
           <Route element={<GuestRoute />}>

@@ -10,19 +10,22 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import UpdateProduct from "./pages/updateProduct/UpdateProduct";
 
 const App = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, loading } = useContext(AuthContext);
+  if(loading) {
+    return <p>Loading....</p>
+  }
 
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<Navigate to={isAuthenticated ? "/admin" : "/login"} />}
+          element={<Navigate to={isAuthenticated ? "/admin" : "/login"} replace/>}
         />
         {/* Login */}
         <Route
           path="/login"
-          element={!isAuthenticated ? <Login /> : <Navigate to="/admin" />}
+          element={!isAuthenticated ? <Login /> : <Navigate to="/admin" replace/>}
         />
         <Route
           path="/admin"

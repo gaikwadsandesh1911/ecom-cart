@@ -1,43 +1,39 @@
-import { useContext} from 'react'
-import { assets } from '../../assets/assets'
+import "./productCard.css";
+import { Link } from "react-router-dom";
 import './productCard.css'
-import { StoreContext } from '../../context/StoreContext';
-import LazyLoadImageComponent from '../LazyLoadImage/LazyLoadImageComponent';
 
+const ProductCard = ({ product }) => {
+  return (
+    <Link to={`/product/${product._id}`} className="product-card-link">
+      <div className="product-card">
+        {product.discount > 0 && (
+          <span className="discount-badge">{product.discount}% OFF</span>
+        )}
 
-// eslint-disable-next-line react/prop-types
-const ProductCard = ({itemId, image, name, price, description}) => {
-    
-    const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
-
-    return (
-    <div className='product-card'>
-
-        <div className="product-card-img-container">
-            {/* <img className='food-card-img' src={image} alt="" /> */}
-            <LazyLoadImageComponent src={image} alt={name} className='product-card-img' />
-            {
-                
-                !cartItems[itemId]
-                 ? <img className='add-icon' onClick={()=>addToCart(itemId)} src={assets.add_icon_white}/>
-                 : <div className="product-item-counter">
-                        <img className='remove-icon' src={assets.remove_icon_red} onClick={()=>removeFromCart(itemId)}/>
-                        <p>{cartItems[itemId]}</p>
-                        <img src={assets.add_icon_green} alt="" onClick={()=>addToCart(itemId)} />
-                   </div>
-            }
+        <div className="product-image-container">
+          <img
+            src={product.image.url}
+            alt={product.name}
+            className="product-image"
+          />
         </div>
 
-        <div className="product-item-info">
-            <div className="product-name-rating">
-                <p>{name}</p>
-            </div>
-            <p className="product-item-desc">{description}</p>
-            <p className="product-item-price">${price}</p>
-        </div>
+        <div className="product-info">
+          <h3 className="product-title">{product.name}</h3>
 
-    </div>
-  )
-}
+          <div className="price-container">
+            <span className="final-price">₹{product.finalPrice}</span>
+
+            <span className="original-price">₹{product.price}</span>
+          </div>
+
+          <p className="save-price">
+            Save ₹{product.price - product.finalPrice}
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 export default ProductCard;

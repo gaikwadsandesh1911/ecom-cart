@@ -6,7 +6,6 @@ import { CustomError } from "../utils/CustomeError.js";
 // ---------------------------------------------------------------------------------------------------------------
 
 const addProduct = asyncErrorHandler(async (req, res, next) => {
-  
   const { name, description, price, category, stock, discount } = req.body;
 
   const product = await Product.create({
@@ -39,7 +38,7 @@ const productList = asyncErrorHandler(async (req, res, next) => {
 
   // ----------------------------------------------------------------------------------------------------------------
 
-  const { category, search } = req.query;
+  const { category, search, sort } = req.query;
 
   let query = {};
 
@@ -48,10 +47,37 @@ const productList = asyncErrorHandler(async (req, res, next) => {
   }
 
   if (search) {
-    query.name = { $regex: search, $options: "i" };
+    // query.name = { $regex: search, $options: "i" };
+    query.$or = [
+      {
+        name: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+
+      {
+        category: {
+          $regex: search,
+          $options: "i",
+        },
+      },
+    ];
   }
 
-  // console.log('query', query);
+  let sortOption = {
+    createdAt: -1,
+  };
+
+  if (sort === "price_asc") {
+    sortOption = { price: 1 };
+  }
+
+  if (sort === "price_desc") {
+    sortOption = { price: -1 };
+  }
+
+  // console.log("query", query);
 
   const totalDocuments = await Product.countDocuments(query);
   const totalPages = Math.ceil(totalDocuments / limit);
@@ -60,8 +86,8 @@ const productList = asyncErrorHandler(async (req, res, next) => {
     .select("name description price discount image category stock createdAt")
     .skip(skip)
     .limit(limit)
-    .sort({ createdAt: -1 })
-    // .lean({ virtuals: true });
+    .sort(sortOption);
+  // .lean({ virtuals: true });
 
   return res.status(200).json({
     success: true,

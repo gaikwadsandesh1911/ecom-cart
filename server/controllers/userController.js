@@ -120,7 +120,7 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
 
 const getCurrentUser = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req?.userId);
-  const { password, createdAt, updatedAt, role, __v, ...safeUser } = user.toObject();
+  const { password, createdAt, updatedAt, __v, ...safeUser } = user.toObject();
   return res.status(200).json({
     success: true,
     user: safeUser,
