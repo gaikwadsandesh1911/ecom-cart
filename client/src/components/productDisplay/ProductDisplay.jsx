@@ -62,8 +62,7 @@ const ProductDisplay = () => {
 
   return (
     <div className="product-display" id="product-display">
-      <h2 className="top-products">Top Products</h2>
-
+      
       {products && (
         <div className="product-list">
           {products.map((product) => (

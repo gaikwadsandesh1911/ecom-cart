@@ -704,7 +704,400 @@ const products = [
   },
   category: "smartwatch",
   stock: 110,
-},  */
+}, 
+
+  {
+    name: "Canon EOS R10",
+    description:
+      "Canon EOS R10 mirrorless camera featuring advanced autofocus technology, 24.2MP image sensor, high speed continuous shooting and 4K video recording capabilities designed for photography and content creation.",
+    price: 89999,
+    discount: 12,
+    image: {
+      url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
+      publicId: "CanonEOSR10",
+    },
+    category: "dslr",
+    stock: 40,
+  },
+
+  {
+    name: "Nikon D7500",
+    description:
+      "Nikon D7500 DSLR camera equipped with excellent image quality, powerful autofocus system, durable body design and professional shooting features for photography enthusiasts and creators.",
+    price: 79999,
+    discount: 15,
+    image: {
+      url: "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?w=500",
+      publicId: "NikonD7500",
+    },
+    category: "dslr",
+    stock: 35,
+  },
+
+  {
+    name: "Sony Alpha A6700",
+    description:
+      "Sony Alpha A6700 camera offers AI powered autofocus, premium image quality, cinematic video recording and compact lightweight design suitable for creators and photographers.",
+    price: 109999,
+    discount: 10,
+    image: {
+      url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
+      publicId: "SonyAlphaA6700",
+    },
+    category: "dslr",
+    stock: 28,
+  },
+
+  {
+    name: "Fujifilm X-T5",
+    description:
+      "Fujifilm X-T5 mirrorless camera with professional photography controls, exceptional color science and premium image processing designed for enthusiasts and content creators.",
+    price: 124999,
+    discount: 8,
+    image: {
+      url: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500",
+      publicId: "FujiXT5",
+    },
+    category: "dslr",
+    stock: 25,
+  },
+
+  {
+    name: "OnePlus Pad 4",
+    description:
+      "OnePlus Pad 4 tablet featuring immersive display quality, powerful processor performance, premium build design and productivity focused capabilities suitable for entertainment and multitasking.",
+    price: 62999,
+    discount: 5,
+    image: {
+      url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
+      publicId: "OnePlusPad4",
+    },
+    category: "tablet",
+    stock: 120,
+  },
+
+  {
+    name: "Samsung Galaxy Tab S10",
+    description:
+      "Samsung Galaxy Tab S10 with AMOLED display technology, S Pen support, premium performance and long battery life designed for work, entertainment and productivity usage.",
+    price: 68999,
+    discount: 10,
+    image: {
+      url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
+      publicId: "GalaxyTabS10",
+    },
+    category: "tablet",
+    stock: 80,
+  },
+
+  {
+    name: "Apple iPad Air M3",
+    description:
+      "Apple iPad Air M3 powered by advanced processor architecture, premium Liquid Retina display and seamless multitasking features suitable for creativity and productivity tasks.",
+    price: 75999,
+    discount: 7,
+    image: {
+      url: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=500",
+      publicId: "iPadAirM3",
+    },
+    category: "tablet",
+    stock: 90,
+  },
+
+  {
+    name: "Lenovo Tab P12",
+    description:
+      "Lenovo Tab P12 tablet equipped with large display, smooth performance, entertainment features and long lasting battery backup suitable for students and professionals.",
+    price: 29999,
+    discount: 20,
+    image: {
+      url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
+      publicId: "LenovoTabP12",
+    },
+    category: "tablet",
+    stock: 100,
+  },
+
+  {
+    name: "Logitech MX Master 3S",
+    description:
+      "Logitech MX Master 3S wireless mouse featuring precise tracking technology, ergonomic design and customizable controls designed for developers and productivity users.",
+    price: 9999,
+    discount: 10,
+    image: {
+      url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+      publicId: "LogitechMXMaster3S",
+    },
+    category: "mouse",
+    stock: 140,
+  },
+
+  {
+    name: "Razer DeathAdder V3",
+    description:
+      "Razer DeathAdder V3 gaming mouse equipped with lightweight design, high precision optical sensor and customizable performance for gaming and productivity use.",
+    price: 5999,
+    discount: 15,
+    image: {
+      url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
+      publicId: "RazerDeathAdderV3",
+    },
+    category: "mouse",
+    stock: 100,
+  },
+
+  {
+    name: "HP Wireless Mouse X200",
+    description:
+      "HP X200 wireless mouse offering comfortable ergonomic grip, reliable wireless connectivity and smooth performance suitable for office and personal productivity tasks.",
+    price: 999,
+    discount: 30,
+    image: {
+      url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
+      publicId: "HPMouseX200",
+    },
+    category: "mouse",
+    stock: 180,
+  },
+
+  {
+    name: "Apple Magic Keyboard",
+    description:
+      "Apple Magic Keyboard featuring premium build quality, comfortable key travel, wireless connectivity and seamless integration with Apple ecosystem devices.",
+    price: 8999,
+    discount: 5,
+    image: {
+      url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
+      publicId: "AppleMagicKeyboard",
+    },
+    category: "keyboard",
+    stock: 70,
+  },
+
+  {
+    name: "Logitech G Pro X",
+    description:
+      "Logitech G Pro X mechanical keyboard with customizable RGB lighting, premium switches and compact design built for gamers and professionals.",
+    price: 12999,
+    discount: 18,
+    image: {
+      url: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=500",
+      publicId: "LogitechGProX",
+    },
+    category: "keyboard",
+    stock: 90,
+  },
+
+  {
+    name: "Razer BlackWidow V4",
+    description:
+      "Razer BlackWidow V4 keyboard featuring mechanical switches, customizable RGB effects and premium build quality designed for gaming enthusiasts.",
+    price: 14999,
+    discount: 15,
+    image: {
+      url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
+      publicId: "RazerBlackWidowV4",
+    },
+    category: "keyboard",
+    stock: 75,
+  },
+
+  {
+    name: "Redragon K552 Kumara",
+    description:
+      "Redragon K552 Kumara compact keyboard with mechanical switches, anti ghosting support and durable construction designed for gaming and productivity.",
+    price: 3999,
+    discount: 35,
+    image: {
+      url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+      publicId: "RedragonK552",
+    },
+    category: "keyboard",
+    stock: 110,
+  },
+  */
+
+  {
+  name: "Canon EOS 90D",
+  description:
+    "Canon EOS 90D DSLR camera with 32.5MP sensor, advanced autofocus technology, high speed continuous shooting and professional image quality designed for creators and photography enthusiasts.",
+  price: 104999,
+  discount: 10,
+  image: {
+    url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500",
+    publicId: "CanonEOS90D",
+  },
+  category: "dslr",
+  stock: 45,
+},
+
+{
+  name: "Nikon Z6 II",
+  description:
+    "Nikon Z6 II mirrorless camera equipped with dual processors, premium image quality, fast autofocus performance and advanced video recording capabilities for professionals and creators.",
+  price: 129999,
+  discount: 12,
+  image: {
+    url: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=500",
+    publicId: "NikonZ6II",
+  },
+  category: "dslr",
+  stock: 35,
+},
+
+{
+  name: "Sony Alpha A7 IV",
+  description:
+    "Sony Alpha A7 IV features excellent image processing, AI autofocus capabilities, premium video quality and lightweight design suitable for photographers and content creators.",
+  price: 179999,
+  discount: 8,
+  image: {
+    url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
+    publicId: "SonyAlphaA7IV",
+  },
+  category: "dslr",
+  stock: 28,
+},
+
+{
+  name: "Panasonic Lumix G95",
+  description:
+    "Panasonic Lumix G95 camera with excellent stabilization technology, durable construction, premium image quality and advanced video recording support for professional creators.",
+  price: 84999,
+  discount: 18,
+  image: {
+    url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
+    publicId: "PanasonicLumixG95",
+  },
+  category: "dslr",
+  stock: 40,
+},
+
+{
+  name: "Xiaomi Pad 7 Pro",
+  description:
+    "Xiaomi Pad 7 Pro tablet featuring immersive display quality, powerful processor architecture, smooth multitasking capabilities and premium design for productivity and entertainment users.",
+  price: 44999,
+  discount: 15,
+  image: {
+    url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
+    publicId: "XiaomiPad7Pro",
+  },
+  category: "tablet",
+  stock: 110,
+},
+
+{
+  name: "Realme Pad X",
+  description:
+    "Realme Pad X equipped with large display size, powerful multimedia performance, dependable battery life and lightweight construction suitable for students and entertainment needs.",
+  price: 23999,
+  discount: 20,
+  image: {
+    url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
+    publicId: "RealmePadX",
+  },
+  category: "tablet",
+  stock: 120,
+},
+
+{
+  name: "Honor Pad V9",
+  description:
+    "Honor Pad V9 tablet with immersive viewing experience, premium design quality, excellent processor performance and all day battery backup for multitasking and entertainment.",
+  price: 35999,
+  discount: 17,
+  image: {
+    url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
+    publicId: "HonorPadV9",
+  },
+  category: "tablet",
+  stock: 95,
+},
+
+{
+  name: "ASUS ROG Chakram X",
+  description:
+    "ASUS ROG Chakram X gaming mouse featuring high precision optical sensor, customizable controls and ergonomic design for professional gaming and productivity workflows.",
+  price: 8499,
+  discount: 18,
+  image: {
+    url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+    publicId: "ASUSROGChakramX",
+  },
+  category: "mouse",
+  stock: 100,
+},
+
+{
+  name: "Logitech G502 Hero",
+  description:
+    "Logitech G502 Hero gaming mouse with customizable buttons, accurate sensor technology and premium ergonomic design suitable for gamers and power users.",
+  price: 4999,
+  discount: 20,
+  image: {
+    url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
+    publicId: "LogitechG502Hero",
+  },
+  category: "mouse",
+  stock: 150,
+},
+
+{
+  name: "Dell WM126 Wireless Mouse",
+  description:
+    "Dell WM126 wireless mouse offering lightweight construction, reliable wireless connectivity and comfortable design for everyday office work and productivity requirements.",
+  price: 899,
+  discount: 35,
+  image: {
+    url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
+    publicId: "DellWM126",
+  },
+  category: "mouse",
+  stock: 180,
+},
+
+{
+  name: "Corsair K95 RGB Platinum",
+  description:
+    "Corsair K95 RGB Platinum mechanical keyboard featuring premium switches, customizable RGB lighting and durable aluminum frame designed for gamers and creators.",
+  price: 15999,
+  discount: 12,
+  image: {
+    url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
+    publicId: "CorsairK95RGB",
+  },
+  category: "keyboard",
+  stock: 80,
+},
+
+{
+  name: "HyperX Alloy Origins",
+  description:
+    "HyperX Alloy Origins keyboard with compact mechanical design, responsive key switches and durable construction suitable for gaming and productivity workflows.",
+  price: 7999,
+  discount: 20,
+  image: {
+    url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
+    publicId: "HyperXAlloyOrigins",
+  },
+  category: "keyboard",
+  stock: 95,
+},
+
+{
+  name: "Zebronics Zeb Max Pro",
+  description:
+    "Zebronics Zeb Max Pro keyboard with premium design, RGB lighting effects and comfortable typing experience suitable for office users and gamers.",
+  price: 2499,
+  discount: 30,
+  image: {
+    url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+    publicId: "ZebronicsZebMaxPro",
+  },
+  category: "keyboard",
+  stock: 130,
+},
 ];
 
 // ---------------------------------------------------------------
