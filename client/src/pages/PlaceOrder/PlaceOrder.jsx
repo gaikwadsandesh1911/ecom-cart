@@ -1,11 +1,54 @@
 import "./placeOrder.css";
 import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { getCartDetails } from "../../api/cartApi.js";
+import { placeOrder } from "../../api/orderApi.js";
 
 const PlaceOrder = () => {
-  const [userData, setUserData] = useState({
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["cart"],
+    queryFn: getCartDetails,
+  });
+  console.log("cart-data", data);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: placeOrder,
+    onSuccess: (data) => {
+      console.log("placeOrder success :", data);
+      toast.success(data.message);
+      queryClient.removeQueries({
+        queryKey: ["cart"],
+      });
+
+      // clear user form
+      setAddress({
+        firstName: "",
+        lastName: "",
+        street: "",
+        city: "",
+        state: "",
+        zipcode: "",
+        country: "",
+        phone: "",
+      });
+
+      navigate("/my-orders");
+    },
+    onError: (error) => {
+      console.log("placeOrder error", error);
+      toast.error(error);
+    },
+  });
+
+  const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
-    email: "",
     street: "",
     city: "",
     state: "",
@@ -14,14 +57,17 @@ const PlaceOrder = () => {
     phone: "",
   });
 
+  const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
+    setAddress((prev) => ({ ...prev, [name]: value }));
+
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   // --------------------------------------------------------------------------------------------------
-
-  const [errors, setErrors] = useState({});
 
   const isValidPhoneNumber = (phone) => {
     const phoneRegex = /\b\d{10}\b/;
@@ -31,7 +77,7 @@ const PlaceOrder = () => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!isValidPhoneNumber(userData["phone"])) {
+    if (!isValidPhoneNumber(address.phone)) {
       newErrors.phone = "Please enter 10 digit valid phone number";
     }
 
@@ -48,22 +94,18 @@ const PlaceOrder = () => {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      // clear user form
-      setUserData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        street: "",
-        city: "",
-        state: "",
-        zipcode: "",
-        country: "",
-        phone: "",
+      mutate({
+        address,
+        paymentMethod,
       });
     }
   };
 
   // --------------------------------------------------------------------------------------------------
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <form className="place-order" onSubmit={handleSubmit}>
@@ -75,7 +117,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="First Name"
             name="firstName"
-            value={userData.firstName}
+            value={address.firstName}
             onChange={handleChange}
             required
           />
@@ -83,26 +125,17 @@ const PlaceOrder = () => {
             type="text"
             placeholder="Last Name"
             name="lastName"
-            value={userData.lastName}
+            value={address.lastName}
             onChange={handleChange}
             required
           />
         </div>
 
         <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-          required
-        />
-
-        <input
           type="text"
           placeholder="Street"
           name="street"
-          value={userData.street}
+          value={address.street}
           onChange={handleChange}
           required
         />
@@ -112,7 +145,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="City"
             name="city"
-            value={userData.city}
+            value={address.city}
             onChange={handleChange}
             required
           />
@@ -120,7 +153,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="State"
             name="state"
-            value={userData.state}
+            value={address.state}
             onChange={handleChange}
             required
           />
@@ -131,7 +164,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="Zip code"
             name="zipcode"
-            value={userData.zipcode}
+            value={address.zipcode}
             onChange={handleChange}
             required
           />
@@ -139,7 +172,7 @@ const PlaceOrder = () => {
             type="text"
             placeholder="Country"
             name="country"
-            value={userData.country}
+            value={address.country}
             onChange={handleChange}
             required
           />
@@ -149,7 +182,7 @@ const PlaceOrder = () => {
           type="text"
           placeholder="Phone"
           name="phone"
-          value={userData.phone}
+          value={address.phone}
           onChange={handleChange}
           required
         />
@@ -158,26 +191,69 @@ const PlaceOrder = () => {
 
       <div className="place-order-right">
         <div className="cart-total">
-          <h2 className="title">Cart Total</h2>
-          <div>
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p></p>
-            </div>
-            <hr />
+          <p className="title">Order Summary</p>
 
-            <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p></p>
-            </div>
-            <hr />
+          <div className="summary-row">
+            <span>Total Items</span>
+            <span>{data?.cartCount}</span>
+          </div>
 
-            <div className="cart-total-details">
-              <b>Total</b>
-              <b></b>
+          <div className="summary-row">
+            <span>Original Total</span>
+            <span className="line-through">{data?.originalCartTotal}</span>
+          </div>
+
+          <div className="summary-row">
+            <span>Final Price</span>
+            <span>₹{data?.cartTotal}</span>
+          </div>
+
+          <div className="summary-row">
+            <span>Delivery Fee</span>
+            <span className="free">Free</span>
+          </div>
+
+          <div className="summary-row">
+            <span>Total Saving</span>
+            <span className="free">{data?.totalSavings}</span>
+          </div>
+
+          <hr />
+
+          <div className="summary-row grand-total">
+            <span>Total Amount</span>
+            <span>₹{data?.cartTotal}</span>
+          </div>
+
+          <div className="payment-section">
+            <p className="payment-title">Payment Method</p>
+
+            <div
+              className={
+                paymentMethod === "COD"
+                  ? "payment-option active"
+                  : "payment-option"
+              }
+              onClick={() => setPaymentMethod("COD")}
+            >
+              <input type="radio" checked={paymentMethod === "COD"} readOnly />
+
+              <span>Cash On Delivery</span>
+            </div>
+
+            <div className="payment-option disabled">
+              <input type="radio" disabled />
+
+              <span>Razorpay (Coming Soon)</span>
             </div>
           </div>
-          <button type="submit">Proceed to checkout</button>
+
+          <button
+            type="submit"
+            disabled={isPending || data?.cart?.length === 0}
+          >
+            {isPending ? "Placing..." : "Place Order"}
+          </button>
         </div>
       </div>
     </form>

@@ -9,8 +9,6 @@ import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import http from "http";
-import { Server } from "socket.io";
-import { getOrderStatus } from "./socket/orderStatus.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -48,24 +46,7 @@ app.use((req, res, next) => {
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    methods: ["GET", "POST", "PUT", "PATCH"],
-    credentials: true,
-  },
-});
 
-io.on("connection", (socket) => {
-  // console.log('user connected', socket.id)
-
-  // order status;
-  getOrderStatus(io, socket);
-
-  socket.on("disconnect", () => {
-    // console.log('user disconnected', socket.id)
-  });
-});
 
 // global error handling middleware
 app.use(globalErrorHandler);

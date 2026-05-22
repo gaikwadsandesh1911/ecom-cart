@@ -5,7 +5,6 @@ import { CustomError } from "../utils/CustomeError.js";
 
 //add items to  cart
 const addTocart = asyncErrorHandler(async (req, res, next) => {
-  
   const { productId } = req.params;
 
   if (!productId) {
@@ -53,7 +52,6 @@ const addTocart = asyncErrorHandler(async (req, res, next) => {
 
 // remove from cart — decrement quantity by 1, remove if quantity hits 0
 const removeFromCart = asyncErrorHandler(async (req, res, next) => {
-
   const { productId } = req.params;
 
   if (!productId) {
@@ -90,11 +88,12 @@ const removeFromCart = asyncErrorHandler(async (req, res, next) => {
 // ---------------------------------------------------------------------------------------------
 
 const getCartDetails = asyncErrorHandler(async (req, res, next) => {
-  
   const user = await User.findById(req.userId).populate({
     path: "cartData.productId",
-    select: "name price image category stock",
-  }).lean();
+    select: "name price image category stock finalPrice discount",
+  });
+
+  // console.log("userCartdetails", user);
 
   if (!user) return next(new CustomError("User not found", 404));
 
@@ -105,18 +104,31 @@ const getCartDetails = asyncErrorHandler(async (req, res, next) => {
     price: item.productId.price,
     image: item.productId.image,
     category: item.productId.category,
+    discount: item.productId.discount,
     stock: item.productId.stock,
     quantity: item.quantity,
-    totalPrice: item.productId.price * item.quantity,
+    finalPrice: item.productId.finalPrice,
+    totalPrice: item.productId.finalPrice * item.quantity,
+    originalTotal: item.productId.price * item.quantity,
   }));
 
-  const cartTotal = cart.reduce((acc, item) => acc + item.totalPrice, 0);
+
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  // before discount
+  const originalCartTotal = cart.reduce((acc, item) => acc + item.originalTotal, 0);
+
+  // after discount
+  const cartTotal = cart.reduce((acc, item) => acc + item.totalPrice, 0);
+  
+  const totalSavings = originalCartTotal - cartTotal;
 
   return res.status(200).json({
     success: true,
     cartCount,
+    originalCartTotal,
     cartTotal,
+    totalSavings,
     cart,
   });
 });
@@ -125,7 +137,6 @@ const getCartDetails = asyncErrorHandler(async (req, res, next) => {
 
 // clear cart — empty entire cart
 const clearCart = asyncErrorHandler(async (req, res, next) => {
-
   const user = await User.findById(req.userId);
 
   if (!user) return next(new CustomError("User not found", 404));
@@ -144,7 +155,6 @@ const clearCart = asyncErrorHandler(async (req, res, next) => {
 
 // delete from cart — remove product entirely regardless of quantity
 const deleteFromCart = asyncErrorHandler(async (req, res, next) => {
-
   const { productId } = req.params;
 
   if (!productId) {

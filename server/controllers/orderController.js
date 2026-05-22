@@ -6,8 +6,7 @@ import { CustomError } from "../utils/CustomeError.js";
 import { asyncErrorHandler } from "../utils/asynchErrorHandller.js";
 
 // place order COD
-const placeOrderCOD = asyncErrorHandler(async (req, res, next) => {
-
+const placeOrder = asyncErrorHandler(async (req, res, next) => {
   const { address } = req.body;
 
   if (!address) {
@@ -30,7 +29,7 @@ const placeOrderCOD = asyncErrorHandler(async (req, res, next) => {
 
   const user = await User.findById(req.userId).populate({
     path: "cartData.productId",
-    select: "name price image stock",
+    select: "name price image category stock finalPrice discount",
   });
 
   if (!user) return next(new CustomError("User not found", 404));
@@ -52,13 +51,15 @@ const placeOrderCOD = asyncErrorHandler(async (req, res, next) => {
       productId: product._id,
       name: product.name,
       price: product.price,
+      finalPrice: product.finalPrice,
+      discount: product.discount,
       image: product.image,
       quantity: cartItem.quantity,
     });
   }
 
   const amount = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.finalPrice * item.quantity,
     0,
   );
 
@@ -68,7 +69,7 @@ const placeOrderCOD = asyncErrorHandler(async (req, res, next) => {
     items,
     amount,
     paymentMethod: "COD",
-    payment: false, // paid on delivery
+    payment: paymentMethod === "COD" ? false : true, // paid on delivery
   });
 
   // deduct stock
@@ -126,7 +127,7 @@ const allOrders = asyncErrorHandler(async (req, res, next) => {
     .sort({ createdAt: -1 })
     .lean();
 
-    console.log("orders", orders);
+  console.log("orders", orders);
 
   return res.status(200).json({
     success: true,
@@ -148,7 +149,7 @@ const updateOrderStatus = asyncErrorHandler(async (req, res, next) => {
 
   if (!order) return next(new CustomError("Order not found", 404));
 
- /*  if (order.status === "Delivered") {
+  /*  if (order.status === "Delivered") {
     return next(new CustomError(`Order already ${order.status}`, 400));
   } */
 
@@ -171,4 +172,4 @@ const updateOrderStatus = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-export { placeOrderCOD, allOrders, myOrders, updateOrderStatus };
+export { placeOrder, allOrders, myOrders, updateOrderStatus };

@@ -915,189 +915,190 @@ const products = [
     category: "keyboard",
     stock: 110,
   },
-  */
+  
 
   {
-  name: "Canon EOS 90D",
-  description:
-    "Canon EOS 90D DSLR camera with 32.5MP sensor, advanced autofocus technology, high speed continuous shooting and professional image quality designed for creators and photography enthusiasts.",
-  price: 104999,
-  discount: 10,
-  image: {
-    url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500",
-    publicId: "CanonEOS90D",
+    name: "Canon EOS 90D",
+    description:
+      "Canon EOS 90D DSLR camera with 32.5MP sensor, advanced autofocus technology, high speed continuous shooting and professional image quality designed for creators and photography enthusiasts.",
+    price: 104999,
+    discount: 10,
+    image: {
+      url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500",
+      publicId: "CanonEOS90D",
+    },
+    category: "dslr",
+    stock: 45,
   },
-  category: "dslr",
-  stock: 45,
-},
 
-{
-  name: "Nikon Z6 II",
-  description:
-    "Nikon Z6 II mirrorless camera equipped with dual processors, premium image quality, fast autofocus performance and advanced video recording capabilities for professionals and creators.",
-  price: 129999,
-  discount: 12,
-  image: {
-    url: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=500",
-    publicId: "NikonZ6II",
+  {
+    name: "Nikon Z6 II",
+    description:
+      "Nikon Z6 II mirrorless camera equipped with dual processors, premium image quality, fast autofocus performance and advanced video recording capabilities for professionals and creators.",
+    price: 129999,
+    discount: 12,
+    image: {
+      url: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=500",
+      publicId: "NikonZ6II",
+    },
+    category: "dslr",
+    stock: 35,
   },
-  category: "dslr",
-  stock: 35,
-},
 
-{
-  name: "Sony Alpha A7 IV",
-  description:
-    "Sony Alpha A7 IV features excellent image processing, AI autofocus capabilities, premium video quality and lightweight design suitable for photographers and content creators.",
-  price: 179999,
-  discount: 8,
-  image: {
-    url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
-    publicId: "SonyAlphaA7IV",
+  {
+    name: "Sony Alpha A7 IV",
+    description:
+      "Sony Alpha A7 IV features excellent image processing, AI autofocus capabilities, premium video quality and lightweight design suitable for photographers and content creators.",
+    price: 179999,
+    discount: 8,
+    image: {
+      url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
+      publicId: "SonyAlphaA7IV",
+    },
+    category: "dslr",
+    stock: 28,
   },
-  category: "dslr",
-  stock: 28,
-},
 
-{
-  name: "Panasonic Lumix G95",
-  description:
-    "Panasonic Lumix G95 camera with excellent stabilization technology, durable construction, premium image quality and advanced video recording support for professional creators.",
-  price: 84999,
-  discount: 18,
-  image: {
-    url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
-    publicId: "PanasonicLumixG95",
+  {
+    name: "Panasonic Lumix G95",
+    description:
+      "Panasonic Lumix G95 camera with excellent stabilization technology, durable construction, premium image quality and advanced video recording support for professional creators.",
+    price: 84999,
+    discount: 18,
+    image: {
+      url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
+      publicId: "PanasonicLumixG95",
+    },
+    category: "dslr",
+    stock: 40,
   },
-  category: "dslr",
-  stock: 40,
-},
 
-{
-  name: "Xiaomi Pad 7 Pro",
-  description:
-    "Xiaomi Pad 7 Pro tablet featuring immersive display quality, powerful processor architecture, smooth multitasking capabilities and premium design for productivity and entertainment users.",
-  price: 44999,
-  discount: 15,
-  image: {
-    url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
-    publicId: "XiaomiPad7Pro",
+  {
+    name: "Xiaomi Pad 7 Pro",
+    description:
+      "Xiaomi Pad 7 Pro tablet featuring immersive display quality, powerful processor architecture, smooth multitasking capabilities and premium design for productivity and entertainment users.",
+    price: 44999,
+    discount: 15,
+    image: {
+      url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
+      publicId: "XiaomiPad7Pro",
+    },
+    category: "tablet",
+    stock: 110,
   },
-  category: "tablet",
-  stock: 110,
-},
 
-{
-  name: "Realme Pad X",
-  description:
-    "Realme Pad X equipped with large display size, powerful multimedia performance, dependable battery life and lightweight construction suitable for students and entertainment needs.",
-  price: 23999,
-  discount: 20,
-  image: {
-    url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
-    publicId: "RealmePadX",
+  {
+    name: "Realme Pad X",
+    description:
+      "Realme Pad X equipped with large display size, powerful multimedia performance, dependable battery life and lightweight construction suitable for students and entertainment needs.",
+    price: 23999,
+    discount: 20,
+    image: {
+      url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
+      publicId: "RealmePadX",
+    },
+    category: "tablet",
+    stock: 120,
   },
-  category: "tablet",
-  stock: 120,
-},
 
-{
-  name: "Honor Pad V9",
-  description:
-    "Honor Pad V9 tablet with immersive viewing experience, premium design quality, excellent processor performance and all day battery backup for multitasking and entertainment.",
-  price: 35999,
-  discount: 17,
-  image: {
-    url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
-    publicId: "HonorPadV9",
+  {
+    name: "Honor Pad V9",
+    description:
+      "Honor Pad V9 tablet with immersive viewing experience, premium design quality, excellent processor performance and all day battery backup for multitasking and entertainment.",
+    price: 35999,
+    discount: 17,
+    image: {
+      url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
+      publicId: "HonorPadV9",
+    },
+    category: "tablet",
+    stock: 95,
   },
-  category: "tablet",
-  stock: 95,
-},
 
-{
-  name: "ASUS ROG Chakram X",
-  description:
-    "ASUS ROG Chakram X gaming mouse featuring high precision optical sensor, customizable controls and ergonomic design for professional gaming and productivity workflows.",
-  price: 8499,
-  discount: 18,
-  image: {
-    url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
-    publicId: "ASUSROGChakramX",
+  {
+    name: "ASUS ROG Chakram X",
+    description:
+      "ASUS ROG Chakram X gaming mouse featuring high precision optical sensor, customizable controls and ergonomic design for professional gaming and productivity workflows.",
+    price: 8499,
+    discount: 18,
+    image: {
+      url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+      publicId: "ASUSROGChakramX",
+    },
+    category: "mouse",
+    stock: 100,
   },
-  category: "mouse",
-  stock: 100,
-},
 
-{
-  name: "Logitech G502 Hero",
-  description:
-    "Logitech G502 Hero gaming mouse with customizable buttons, accurate sensor technology and premium ergonomic design suitable for gamers and power users.",
-  price: 4999,
-  discount: 20,
-  image: {
-    url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
-    publicId: "LogitechG502Hero",
+  {
+    name: "Logitech G502 Hero",
+    description:
+      "Logitech G502 Hero gaming mouse with customizable buttons, accurate sensor technology and premium ergonomic design suitable for gamers and power users.",
+    price: 4999,
+    discount: 20,
+    image: {
+      url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
+      publicId: "LogitechG502Hero",
+    },
+    category: "mouse",
+    stock: 150,
   },
-  category: "mouse",
-  stock: 150,
-},
 
-{
-  name: "Dell WM126 Wireless Mouse",
-  description:
-    "Dell WM126 wireless mouse offering lightweight construction, reliable wireless connectivity and comfortable design for everyday office work and productivity requirements.",
-  price: 899,
-  discount: 35,
-  image: {
-    url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
-    publicId: "DellWM126",
+  {
+    name: "Dell WM126 Wireless Mouse",
+    description:
+      "Dell WM126 wireless mouse offering lightweight construction, reliable wireless connectivity and comfortable design for everyday office work and productivity requirements.",
+    price: 899,
+    discount: 35,
+    image: {
+      url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
+      publicId: "DellWM126",
+    },
+    category: "mouse",
+    stock: 180,
   },
-  category: "mouse",
-  stock: 180,
-},
 
-{
-  name: "Corsair K95 RGB Platinum",
-  description:
-    "Corsair K95 RGB Platinum mechanical keyboard featuring premium switches, customizable RGB lighting and durable aluminum frame designed for gamers and creators.",
-  price: 15999,
-  discount: 12,
-  image: {
-    url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
-    publicId: "CorsairK95RGB",
+  {
+    name: "Corsair K95 RGB Platinum",
+    description:
+      "Corsair K95 RGB Platinum mechanical keyboard featuring premium switches, customizable RGB lighting and durable aluminum frame designed for gamers and creators.",
+    price: 15999,
+    discount: 12,
+    image: {
+      url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
+      publicId: "CorsairK95RGB",
+    },
+    category: "keyboard",
+    stock: 80,
   },
-  category: "keyboard",
-  stock: 80,
-},
 
-{
-  name: "HyperX Alloy Origins",
-  description:
-    "HyperX Alloy Origins keyboard with compact mechanical design, responsive key switches and durable construction suitable for gaming and productivity workflows.",
-  price: 7999,
-  discount: 20,
-  image: {
-    url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
-    publicId: "HyperXAlloyOrigins",
+  {
+    name: "HyperX Alloy Origins",
+    description:
+      "HyperX Alloy Origins keyboard with compact mechanical design, responsive key switches and durable construction suitable for gaming and productivity workflows.",
+    price: 7999,
+    discount: 20,
+    image: {
+      url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
+      publicId: "HyperXAlloyOrigins",
+    },
+    category: "keyboard",
+    stock: 95,
   },
-  category: "keyboard",
-  stock: 95,
-},
 
-{
-  name: "Zebronics Zeb Max Pro",
-  description:
-    "Zebronics Zeb Max Pro keyboard with premium design, RGB lighting effects and comfortable typing experience suitable for office users and gamers.",
-  price: 2499,
-  discount: 30,
-  image: {
-    url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
-    publicId: "ZebronicsZebMaxPro",
+  {
+    name: "Zebronics Zeb Max Pro",
+    description:
+      "Zebronics Zeb Max Pro keyboard with premium design, RGB lighting effects and comfortable typing experience suitable for office users and gamers.",
+    price: 2499,
+    discount: 30,
+    image: {
+      url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+      publicId: "ZebronicsZebMaxPro",
+    },
+    category: "keyboard",
+    stock: 130,
   },
-  category: "keyboard",
-  stock: 130,
-},
+  */
 ];
 
 // ---------------------------------------------------------------
@@ -1110,7 +1111,7 @@ const addData = async () => {
 
     // await Product.deleteMany({});
 
-    await Product.insertMany(products);
+    // await Product.insertMany(products);
 
     console.log("Products Added");
 

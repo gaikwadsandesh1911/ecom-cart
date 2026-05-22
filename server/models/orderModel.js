@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "userId is required"],
+      required: true,
     },
 
     address: {
@@ -28,8 +27,18 @@ const orderSchema = new mongoose.Schema(
         },
         name: { type: String, required: true },
         price: { type: Number, required: true },
+        discount: {
+          type: Number,
+          default: 0,
+        },
+        finalPrice: {
+          type: Number,
+          required: true,
+        },
         quantity: { type: Number, required: true },
-        image: { type: String },
+        image: {
+          type: Object,
+        },
       },
     ],
 
@@ -39,11 +48,7 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: "Preparing",
       enum: {
-        values: [
-          "Preparing",
-          "Out for Delivery",
-          "Delivered"
-        ],
+        values: ["Preparing", "Out for Delivery", "Delivered", "Cancelled"],
         message: "{VALUE} is not a valid status",
       },
     },
@@ -56,19 +61,17 @@ const orderSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
       enum: {
-        values: ["COD", "Stripe"],
+        values: ["COD", "Razorpay"],
         message: "{VALUE} is not a valid payment method",
       },
       default: "COD",
     },
 
-    deliveredAt: {
-      type: Date
-    },
+    deliveredAt:Date,
 
     paymentId: {
       type: String,
-      default: null, // stripe paymentIntent id
+      default: null, // razorPay paymentIntent id
     },
   },
   { timestamps: true },
