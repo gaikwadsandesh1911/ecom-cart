@@ -6,7 +6,7 @@ export const placeOrder = async (data) => {
 };
 
 
-export const myOrders = async () => {
-    const res = await axiosInstance.get('/api/order/my-orders');
+export const getMyOrders = async (pageParam=1) => {
+    const res = await axiosInstance.get(`/api/order/my-orders?page=${pageParam}`);
     return res?.data
 };

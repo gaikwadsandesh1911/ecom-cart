@@ -1,24 +1,74 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "./cart.css";
-import { deleteCartItem, getCartDetails } from "../../api/cartApi";
+import {
+  removeFromCart,
+  getCartDetails,
+  decreaseCartQuantity,
+  increaseCartQuantity,
+} from "../../api/cartApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 const Cart = () => {
   // get cart details
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["cart"],
     queryFn: getCartDetails,
   });
-  console.log("cartData", data);
+
+  // console.log("cartData", data);
+
+  const [removingId, setRemovingId] = useState(null);
 
   const queryClient = useQueryClient();
 
-  const { mutate: removeItem, isPending: removeLoading } = useMutation({
-    mutationFn: deleteCartItem,
+  // remove from cart
+  const { mutate: removeItem } = useMutation({
+    mutationFn: removeFromCart,
+
+    onMutate: (productId) => {
+      setRemovingId(productId);
+    },
+
     onSuccess: (data) => {
-      console.log("removeCart", data);
+      // console.log("removeCart", data);
       toast.success(data.message);
 
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+    },
+
+    onError: (error) => {
+      toast.error(error);
+    },
+
+    onSettled: () => {
+      setRemovingId(null);
+    },
+  });
+
+  // increase quantity
+  const { mutate: increaseQty } = useMutation({
+    mutationFn: increaseCartQuantity,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+    },
+
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  // decrease quantiy
+  const { mutate: decreaseQty } = useMutation({
+    mutationFn: decreaseCartQuantity,
+
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cart"],
       });
@@ -32,8 +82,8 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const cartItems = data?.cart || [];
-  
-  console.log("cartItems", cartItems);
+
+  // console.log("cartItems", cartItems);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -45,7 +95,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <h1 className="cart-title">Shopping Cart</h1>
+      {/* <h1 className="cart-title">Shopping Cart</h1> */}
 
       {cartItems.length === 0 ? (
         <h2>Cart is Empty</h2>
@@ -53,7 +103,7 @@ const Cart = () => {
         <div className="cart-layout">
           <div className="cart-items">
             {cartItems.map((item) => (
-              <div key={item.productId} className="cart-card">
+              <div key={item?.productId} className="cart-card">
                 <img
                   src={item.image.url}
                   alt={item.name}
@@ -70,11 +120,21 @@ const Cart = () => {
                   </div>
 
                   <div className="quantity-container">
-                    <button>-</button>
+                    <button
+                      onClick={() => decreaseQty(item.productId)}
+                      disabled={item.quantity <= 1}
+                    >
+                      -
+                    </button>
 
                     <span>{item.quantity}</span>
 
-                    <button>+</button>
+                    <button
+                      onClick={() => increaseQty(item.productId)}
+                      disabled={item.quantity >= item.stock || item.quantity == 3}
+                    >
+                      +
+                    </button>
                   </div>
 
                   {item.stock <= 10 && (
@@ -86,9 +146,9 @@ const Cart = () => {
                   <button
                     className="remove-btn"
                     onClick={() => removeItem(item.productId)}
-                    disabled={removeLoading}
+                    disabled={removingId === item.productId}
                   >
-                    {removeLoading ? "Removing..." : "Remove"}
+                    {removingId === item.productId ? "Removing..." : "Remove"}
                   </button>
                 </div>
               </div>
@@ -100,8 +160,7 @@ const Cart = () => {
 
             <div className="summary-row">
               <span>Items</span>
-
-              <span>{cartItems.length}</span>
+              <span>{data?.cartCount}</span>
             </div>
 
             <div className="summary-row total">
@@ -110,8 +169,8 @@ const Cart = () => {
             </div>
 
             <div className="summary-row total">
-              <span>Final Total</span>
-              <span>₹{data?.cartTotal}</span>
+              <span>Total Saving</span>
+              <span className="free">₹{data?.totalSavings}</span>
             </div>
 
             <div className="summary-row">
@@ -120,8 +179,8 @@ const Cart = () => {
             </div>
 
             <div className="summary-row total">
-              <span>Total Saving</span>
-              <span className="free">₹{data?.totalSavings}</span>
+              <span>Final Total</span>
+              <span>₹{data?.cartTotal}</span>
             </div>
 
             <button

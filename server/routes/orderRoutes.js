@@ -10,6 +10,8 @@ orderRouter.post("/place-order", authMiddleware, placeOrder);
 
 orderRouter.get('/my-orders', authMiddleware, myOrders);
 
+// for admin
+
 orderRouter.get('/all-orders', authMiddleware, adminMiddleware, allOrders);
 
 orderRouter.patch('/:id/status', authMiddleware, adminMiddleware, updateOrderStatus);

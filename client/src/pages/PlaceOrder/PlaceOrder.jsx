@@ -15,12 +15,12 @@ const PlaceOrder = () => {
     queryKey: ["cart"],
     queryFn: getCartDetails,
   });
-  console.log("cart-data", data);
+  // console.log("cart-data", data);
 
   const { mutate, isPending } = useMutation({
     mutationFn: placeOrder,
     onSuccess: (data) => {
-      console.log("placeOrder success :", data);
+      // console.log("placeOrder success :", data);
       toast.success(data.message);
       queryClient.removeQueries({
         queryKey: ["cart"],
@@ -58,6 +58,7 @@ const PlaceOrder = () => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState("COD");
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -204,8 +205,8 @@ const PlaceOrder = () => {
           </div>
 
           <div className="summary-row">
-            <span>Final Price</span>
-            <span>₹{data?.cartTotal}</span>
+            <span>Total Saving</span>
+            <span className="free">{data?.totalSavings}</span>
           </div>
 
           <div className="summary-row">
@@ -214,8 +215,8 @@ const PlaceOrder = () => {
           </div>
 
           <div className="summary-row">
-            <span>Total Saving</span>
-            <span className="free">{data?.totalSavings}</span>
+            <span>Final Price</span>
+            <span>₹{data?.cartTotal}</span>
           </div>
 
           <hr />

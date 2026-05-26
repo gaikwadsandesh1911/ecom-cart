@@ -1,19 +1,27 @@
-import express from 'express';
-import { addTocart, clearCart, deleteFromCart, getCartDetails, removeFromCart } from '../controllers/cartController.js';
-import authMiddleware from '../middlewares/authMiddleware.js';
+import express from "express";
+import {
+  addTocart,
+  clearCart,
+  decreaseCartQuantity,
+  increaseCartQuantity,
+  getCartDetails,
+  removeFromCart,
+} from "../controllers/cartController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const cartRouter = express.Router();
 
-cartRouter.post('/:productId', authMiddleware,  addTocart)
-
-// it decrease quanity of productId
-cartRouter.patch('/:productId/decrease', authMiddleware, removeFromCart)
-cartRouter.delete('/clear', authMiddleware, clearCart)
-
-// it delete  productId from  cart
-cartRouter.delete('/:productId', authMiddleware, deleteFromCart)
+cartRouter.post("/:productId", authMiddleware, addTocart);
 
 
-cartRouter.get('/', authMiddleware, getCartDetails)
+cartRouter.patch("/:productId/decrease", authMiddleware, decreaseCartQuantity);
+
+cartRouter.patch("/:productId/increase", authMiddleware, increaseCartQuantity);
+
+cartRouter.delete("/clear", authMiddleware, clearCart);
+
+cartRouter.delete("/:productId", authMiddleware, removeFromCart);
+
+cartRouter.get("/", authMiddleware, getCartDetails);
 
 export default cartRouter;

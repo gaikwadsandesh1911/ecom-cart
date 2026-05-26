@@ -3,11 +3,15 @@ import { assets } from "../../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../../features/auth/authSlice.js";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { logoutUser } from "../../api/userApi.js";
 import { toast } from "react-toastify";
+import { getCartDetails } from "../../api/cartApi.js";
 
 const Navbar = () => {
+
+  const { isAuthenticated } = useSelector((store) => store.auth);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -30,12 +34,22 @@ const Navbar = () => {
       navigate("/");
     },
     onError: (error) => {
-      console.log("logout error =>", error);
+      // console.log("logout error =>", error);
       toast.error(error);
     },
   });
 
-  const { isAuthenticated } = useSelector((store) => store.auth);
+
+  // cart count
+  const { data: cartData } = useQuery({
+    queryKey: ['cart'],
+    queryFn: getCartDetails,
+    enabled: isAuthenticated
+  });
+
+  const totalItems = cartData?.cartCount || 0;
+  // console.log('total...',totalItems);
+  
 
   return (
     <div className="navbar">
@@ -50,8 +64,9 @@ const Navbar = () => {
           <div className="navbar-search-icon">
             <Link to="/cart">
               <img src={assets.basket_icon} alt="" />
+              {totalItems > 0 && (<span className="cart-badge">{totalItems}</span>)}
             </Link>
-            {/* <div className={cartTotalAmount() > 0 ? "dot" : ""}></div> */}
+          
           </div>
 
           <div className="navbar-profile">

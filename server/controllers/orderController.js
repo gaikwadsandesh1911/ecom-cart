@@ -7,7 +7,7 @@ import { asyncErrorHandler } from "../utils/asynchErrorHandller.js";
 
 // place order COD
 const placeOrder = asyncErrorHandler(async (req, res, next) => {
-  const { address } = req.body;
+  const { address, paymentMethod } = req.body;
 
   if (!address) {
     return next(new CustomError("Address is required", 400));
@@ -95,14 +95,35 @@ const placeOrder = asyncErrorHandler(async (req, res, next) => {
 
 // user orders
 const myOrders = asyncErrorHandler(async (req, res, next) => {
-  const orders = await Order.find({ userId: req.userId })
+  const page = Number(req.query.page) || 1;
+  const limit = 5;
+
+  const skip = (page - 1) * limit;
+
+  const totalOrders = await Order.countDocuments({
+    userId: req.userId,
+  });
+
+  const totalPages = Math.ceil(totalOrders / limit);
+
+  const orders = await Order.find({
+    userId: req.userId,
+  })
     .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
     .lean();
 
   return res.status(200).json({
     success: true,
-    length: orders.length,
+
     orders,
+
+    currentPage: page,
+
+    totalPages,
+
+    hasMore: page < totalPages,
   });
 });
 

@@ -66,7 +66,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
           </Route>
 
-          {/* Protected routes can not access following route without login */}
+          {/* Protected routes can not be accessed without login */}
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<Cart />} />
 

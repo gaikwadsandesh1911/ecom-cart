@@ -13,12 +13,15 @@ const addTocart = asyncErrorHandler(async (req, res, next) => {
 
   //   if product exists and has got stock
   const product = await Product.findById(productId);
+
   if (!product) return next(new CustomError("Product not found", 404));
+  
   if (product.stock < 1)
     return next(new CustomError("Product is out of stock", 400));
 
   //   check if user login
   const user = await User.findById(req.userId);
+  
   if (!user) return next(new CustomError("User not found, Please Login", 404));
 
   const itemIndex = user.cartData.findIndex(
@@ -33,6 +36,7 @@ const addTocart = asyncErrorHandler(async (req, res, next) => {
         new CustomError(`Only ${product.stock} items available`, 400),
       );
     }
+    // if product is already in cart, and user again hit api on click add quantity
     user.cartData[itemIndex].quantity += 1;
   } else {
     // product not in cart — add it
@@ -50,8 +54,8 @@ const addTocart = asyncErrorHandler(async (req, res, next) => {
 
 // ---------------------------------------------------------------------------------------------
 
-// remove from cart — decrement quantity by 1, remove if quantity hits 0
-const removeFromCart = asyncErrorHandler(async (req, res, next) => {
+// decrement quantity by 1, remove if quantity hits 0
+const decreaseCartQuantity = asyncErrorHandler(async (req, res, next) => {
   const { productId } = req.params;
 
   if (!productId) {
@@ -80,7 +84,51 @@ const removeFromCart = asyncErrorHandler(async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    message: "Product removed from cart",
+    message: "Quantity Upadated.",
+    cart: user.cartData,
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+
+const increaseCartQuantity = asyncErrorHandler(async (req, res, next) => {
+  const { productId } = req.params;
+
+  if (!productId) {
+    return next(new CustomError("Product id required", 400));
+  }
+
+  const user = await User.findById(req.userId);
+
+  if (!user) {
+    return next(new CustomError("User not found", 404));
+  }
+
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    return next(new CustomError("Product not found", 404));
+  }
+
+  const itemIndex = user.cartData.findIndex(
+    (item) => item.productId.toString() === productId,
+  );
+
+  if (itemIndex === -1) {
+    return next(new CustomError("Item not found in cart", 404));
+  }
+
+  if (user.cartData[itemIndex].quantity >= product.stock) {
+    return next(new CustomError(`Only ${product.stock} items available`, 400));
+  }
+
+  user.cartData[itemIndex].quantity += 1;
+
+  await user.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Quantity increased",
     cart: user.cartData,
   });
 });
@@ -112,15 +160,17 @@ const getCartDetails = asyncErrorHandler(async (req, res, next) => {
     originalTotal: item.productId.price * item.quantity,
   }));
 
-
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   // before discount
-  const originalCartTotal = cart.reduce((acc, item) => acc + item.originalTotal, 0);
+  const originalCartTotal = cart.reduce(
+    (acc, item) => acc + item.originalTotal,
+    0,
+  );
 
   // after discount
   const cartTotal = cart.reduce((acc, item) => acc + item.totalPrice, 0);
-  
+
   const totalSavings = originalCartTotal - cartTotal;
 
   return res.status(200).json({
@@ -153,8 +203,8 @@ const clearCart = asyncErrorHandler(async (req, res, next) => {
 
 // ---------------------------------------------------------------------------------------------
 
-// delete from cart — remove product entirely regardless of quantity
-const deleteFromCart = asyncErrorHandler(async (req, res, next) => {
+// delete from cart — remove specific product from  cart
+const removeFromCart = asyncErrorHandler(async (req, res, next) => {
   const { productId } = req.params;
 
   if (!productId) {
@@ -185,4 +235,6 @@ const deleteFromCart = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-export { addTocart, removeFromCart, getCartDetails, clearCart, deleteFromCart };
+
+
+export { addTocart, getCartDetails, clearCart, removeFromCart, decreaseCartQuantity, increaseCartQuantity };

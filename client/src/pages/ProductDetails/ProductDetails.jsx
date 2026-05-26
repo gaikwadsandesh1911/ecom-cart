@@ -29,7 +29,7 @@ function ProductDetails() {
   const {mutate: addProduct, isPending: addingToCart} = useMutation({
     mutationFn: addToCart,
     onSuccess: (data)=> {
-      console.log('onSuc',data)
+      // console.log('onSuc',data)
       toast.success(data?.message)
       queryClient.invalidateQueries({
         queryKey: ['cart']
@@ -37,7 +37,8 @@ function ProductDetails() {
       
     },
     onError: (error)=> {
-      console.log('onErr',error)
+      // console.log('onErr',error)
+      toast.error(error);
     }
   })
  
@@ -50,7 +51,7 @@ function ProductDetails() {
     return <p>{error.message}</p>;
   }
 
-  console.log("product", product);
+  // console.log("product", product);
 
   return (
     <div className="product-details-container">
