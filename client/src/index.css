@@ -4,9 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
-  font-family: "Outfit", "sans-serif";
-
+  font-family: "Outfit", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -15,11 +13,16 @@ a {
   color: inherit;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+/* Hide scrollbar but keep scrolling */
+html,
+body,
+#root {
+  -ms-overflow-style: none; /* IE + old Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }

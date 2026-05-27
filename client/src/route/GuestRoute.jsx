@@ -4,13 +4,10 @@ function GuestRoute() {
   const { isAuthenticated, authLoading } = useSelector((state) => state.auth);
 
   if (authLoading) {
-    return <h2>Loading...</h2>;
+    return <p>Loading...</p>;
   }
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-  return <Outlet />;
+  return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 }
 
 export default GuestRoute;
