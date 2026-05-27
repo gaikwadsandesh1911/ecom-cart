@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 function ProductDetails() {
 
+
   const { id } = useParams();
 
    const queryClient = useQueryClient();
@@ -64,7 +65,7 @@ function ProductDetails() {
       </div>
 
       <div className="product-info-section">
-        <span className="product-category">{product?.product.category}</span>
+        {/* <span className="product-category">{product?.product.category}</span> */}
 
         <h1 className="product-name">{product?.product.name}</h1>
 
@@ -87,10 +88,6 @@ function ProductDetails() {
         <div className="button-section">
           <button className="cart-btn" disabled={product?.product.stock < 1 || addingToCart} onClick={()=>addProduct(product?.product._id)}>
             {addingToCart ? "Adding..." : "Add To Cart"}
-          </button>
-
-          <button className="buy-btn" disabled={product?.product.stock <= 0}>
-            Buy Now
           </button>
         </div>
       </div>

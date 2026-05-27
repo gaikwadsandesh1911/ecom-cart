@@ -5,6 +5,19 @@ import { toast } from "react-toastify";
 import { axiosInstance } from "../../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
+const categories = [
+  "Earbuds",
+  "Headphones",
+  "Mobiles",
+  "Laptops",
+  "Powerbanks",
+  "Smartwatches",
+  "Cameras",
+  "Tablets",
+  "Mouses",
+  "Keyboards"
+];
+
 const AddProduct = () => {
   const navigate = useNavigate();
 
@@ -163,14 +176,17 @@ const AddProduct = () => {
             onChange={handleChange}
             required
           >
-            <option value="" hidden readOnly>
+            {/* <option value="" hidden readOnly>
               select category
             </option>
-            <option value="Phone">Phone</option>
-            <option value="Laptop">Laptop</option>
-            <option value="HeadPhone">HeadPhone</option>
-            <option value="EarBuds">EarBuds</option>
-            <option value="PowerBank">PowerBank</option>
+            <option value="Earbuds">Earbuds</option>
+            <option value="Headphones">Headphones</option>
+            <option value="HeadPhone">Mobiles</option>
+            <option value="EarBuds">Laptops</option>
+            <option value="PowerBank">Powerbanks</option> */}
+            {
+              categories.map((category)=>(<option value={category}>{category}</option>))
+            }
           </select>
         </div>
 

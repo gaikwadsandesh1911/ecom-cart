@@ -1,0 +1,41 @@
+.filters{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    margin:20px 0;
+}
+
+.filters input{
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+.category-list{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+
+    scrollbar-width:none;
+}
+
+.category-list::-webkit-scrollbar{
+    display:none;
+}
+
+.category-list button{
+    border:none;
+    padding:8px 16px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.active{
+    background:tomato;
+    color:white;
+}
+
+select{
+    width:200px;
+    padding:10px;
+}

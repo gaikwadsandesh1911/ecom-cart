@@ -5,7 +5,7 @@ dotenv.config();
 import { Product } from "./models/productModel.js";
 
 const products = [
-  /*
+  
   {
   name: "OnePlus Nord Buds 3 Pro",
   description:
@@ -16,7 +16,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=500",
     publicId: "OnePlusNordBuds3Pro",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 120,
 },
 
@@ -30,7 +30,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500",
     publicId: "BoatAirdopes141",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 150,
 },
 
@@ -44,7 +44,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=500",
     publicId: "RealmeBudsAir6",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 90,
 },
 
@@ -58,7 +58,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500",
     publicId: "JBLWaveBeam",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 70,
 },
 
@@ -72,7 +72,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=500",
     publicId: "SamsungGalaxyBudsFE",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 85,
 },
 
@@ -86,7 +86,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
     publicId: "SonyWFC500",
   },
-  category: "headphone",
+  category: "Headphones",
   stock: 60,
 },
 
@@ -100,7 +100,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500",
     publicId: "OPPOEncoBuds2",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 130,
 },
 
@@ -114,7 +114,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=500",
     publicId: "RedmiBuds5",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 110,
 },
 
@@ -128,7 +128,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=500",
     publicId: "BoultAudioZ40",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 140,
 },
 
@@ -142,7 +142,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500",
     publicId: "PTronBassbudsDuo",
   },
-  category: "headphone",
+  category: "Earbuds",
   stock: 160,
 },  
 
@@ -156,7 +156,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500",
       publicId: "iPhone16",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 100,
   },
 
@@ -170,7 +170,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500",
       publicId: "SamsungGalaxyS25",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 90,
   },
 
@@ -184,7 +184,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
       publicId: "OnePlus13R",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 130,
   },
 
@@ -198,7 +198,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500",
       publicId: "GooglePixel10",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 75,
   },
 
@@ -212,7 +212,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=500",
       publicId: "Xiaomi15Pro",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 95,
   },
 
@@ -226,7 +226,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500",
       publicId: "NothingPhone3",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 110,
   },
 
@@ -240,7 +240,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500",
       publicId: "MotorolaEdge60",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 80,
   },
 
@@ -254,7 +254,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1583573636246-18cb2246697f?w=500",
       publicId: "RealmeGT8Pro",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 150,
   },
 
@@ -268,7 +268,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=500",
       publicId: "VivoX200",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 100,
   },
 
@@ -282,7 +282,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?w=500",
       publicId: "OPPOFindX9",
     },
-    category: "smartphone",
+    category: "Mobiles",
     stock: 70,
   }, 
 
@@ -296,7 +296,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=500",
       publicId: "MacBookAirM4",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 60,
   },
 
@@ -310,7 +310,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500",
       publicId: "DellXPS15",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 40,
   },
 
@@ -324,7 +324,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500",
       publicId: "HPSpectrex360",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 55,
   },
 
@@ -338,7 +338,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500",
       publicId: "ASUSROGStrixG18",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 45,
   },
 
@@ -352,7 +352,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?w=500",
       publicId: "LenovoLegion7",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 50,
   },
 
@@ -366,7 +366,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=500",
       publicId: "AcerPredatorHeliosNeo",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 70,
   },
 
@@ -380,7 +380,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500",
       publicId: "MSIKatana17",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 65,
   },
 
@@ -394,7 +394,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=500",
       publicId: "SamsungGalaxyBook5",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 75,
   },
 
@@ -408,7 +408,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500",
       publicId: "ASUSVivobookS16",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 100,
   },
 
@@ -422,7 +422,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500",
       publicId: "LenovoIdeaPadSlim5",
     },
-    category: "laptop",
+    category: "Laptops",
     stock: 90,
   }, 
 
@@ -436,7 +436,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=500",
       publicId: "MiPowerBank3i20000",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 140,
   },
 
@@ -450,7 +450,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500",
       publicId: "AmbraneStyloBoost",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 110,
   },
 
@@ -464,7 +464,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1585338447937-7082f8fc763d?w=500",
       publicId: "URBNNanoPowerBank",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 150,
   },
 
@@ -478,7 +478,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1609592806596-b43c0e2b2f31?w=500",
       publicId: "BoatPB400",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 95,
   },
 
@@ -492,7 +492,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1615526675159-e248c3021d3f?w=500",
       publicId: "RedmiPowerBank10000",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 130,
   },
 
@@ -506,7 +506,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1587033411391-5d9e51cce126?w=500",
       publicId: "AnkerPowerCoreSlim",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 80,
   },
 
@@ -520,7 +520,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1601972602237-8c79241e468b?w=500",
       publicId: "PortronicsLuxcell20K",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 125,
   },
 
@@ -534,7 +534,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=500",
       publicId: "SyskaPowerJuice200",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 120,
   },
 
@@ -548,7 +548,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1603539444875-76e7684265dd?w=500",
       publicId: "SpigenArcPack",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 90,
   },
 
@@ -562,7 +562,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=500",
       publicId: "StuffcoolSuperPower",
     },
-    category: "powerbank",
+    category: "Powerbanks",
     stock: 70,
   }, 
 
@@ -576,7 +576,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500",
     publicId: "AppleWatchSeries11",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 70,
 },
 
@@ -590,7 +590,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500",
     publicId: "SamsungGalaxyWatch8",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 90,
 },
 
@@ -604,7 +604,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
     publicId: "NoiseColorFitPro6",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 140,
 },
 
@@ -618,7 +618,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500",
     publicId: "BoatLunarConnectAce",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 150,
 },
 
@@ -632,7 +632,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500",
     publicId: "FireBolttNinjaCallProMax",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 160,
 },
 
@@ -646,7 +646,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1510017803434-a899398421b3?w=500",
     publicId: "AmazfitGTR5",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 75,
 },
 
@@ -660,7 +660,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=500",
     publicId: "OnePlusWatch3",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 80,
 },
 
@@ -674,7 +674,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=500",
     publicId: "HuaweiWatchGT6",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 65,
 },
 
@@ -688,7 +688,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500",
     publicId: "RealmeWatchS2",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 120,
 },
 
@@ -702,7 +702,7 @@ const products = [
     url: "https://images.unsplash.com/photo-1617043786394-f977fa12eddf?w=500",
     publicId: "FastrackReflexVox",
   },
-  category: "smartwatch",
+  category: "Smartwatches",
   stock: 110,
 }, 
 
@@ -716,7 +716,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
       publicId: "CanonEOSR10",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 40,
   },
 
@@ -730,7 +730,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?w=500",
       publicId: "NikonD7500",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 35,
   },
 
@@ -744,7 +744,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
       publicId: "SonyAlphaA6700",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 28,
   },
 
@@ -758,7 +758,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?w=500",
       publicId: "FujiXT5",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 25,
   },
 
@@ -772,7 +772,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
       publicId: "OnePlusPad4",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 120,
   },
 
@@ -786,7 +786,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
       publicId: "GalaxyTabS10",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 80,
   },
 
@@ -800,7 +800,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=500",
       publicId: "iPadAirM3",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 90,
   },
 
@@ -814,7 +814,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
       publicId: "LenovoTabP12",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 100,
   },
 
@@ -828,7 +828,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
       publicId: "LogitechMXMaster3S",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 140,
   },
 
@@ -842,7 +842,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
       publicId: "RazerDeathAdderV3",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 100,
   },
 
@@ -856,7 +856,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
       publicId: "HPMouseX200",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 180,
   },
 
@@ -870,7 +870,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
       publicId: "AppleMagicKeyboard",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 70,
   },
 
@@ -884,7 +884,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=500",
       publicId: "LogitechGProX",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 90,
   },
 
@@ -898,7 +898,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
       publicId: "RazerBlackWidowV4",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 75,
   },
 
@@ -912,7 +912,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
       publicId: "RedragonK552",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 110,
   },
   
@@ -927,7 +927,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500",
       publicId: "CanonEOS90D",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 45,
   },
 
@@ -941,7 +941,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1516724562728-afc824a36e84?w=500",
       publicId: "NikonZ6II",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 35,
   },
 
@@ -955,7 +955,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500",
       publicId: "SonyAlphaA7IV",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 28,
   },
 
@@ -969,7 +969,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1502920917128-1aa500764ce7?w=500",
       publicId: "PanasonicLumixG95",
     },
-    category: "dslr",
+    category: "Cameras",
     stock: 40,
   },
 
@@ -983,7 +983,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
       publicId: "XiaomiPad7Pro",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 110,
   },
 
@@ -997,7 +997,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500",
       publicId: "RealmePadX",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 120,
   },
 
@@ -1011,7 +1011,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=500",
       publicId: "HonorPadV9",
     },
-    category: "tablet",
+    category: "Tablets",
     stock: 95,
   },
 
@@ -1025,7 +1025,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
       publicId: "ASUSROGChakramX",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 100,
   },
 
@@ -1039,7 +1039,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500",
       publicId: "LogitechG502Hero",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 150,
   },
 
@@ -1053,7 +1053,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1613141412501-9012977f1969?w=500",
       publicId: "DellWM126",
     },
-    category: "mouse",
+    category: "Mouses",
     stock: 180,
   },
 
@@ -1067,7 +1067,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
       publicId: "CorsairK95RGB",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 80,
   },
 
@@ -1081,7 +1081,7 @@ const products = [
       url: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=500",
       publicId: "HyperXAlloyOrigins",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 95,
   },
 
@@ -1095,10 +1095,10 @@ const products = [
       url: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
       publicId: "ZebronicsZebMaxPro",
     },
-    category: "keyboard",
+    category: "Keyboards",
     stock: 130,
   },
-  */
+  
 ];
 
 // ---------------------------------------------------------------
@@ -1111,7 +1111,7 @@ const addData = async () => {
 
     // await Product.deleteMany({});
 
-    // await Product.insertMany(products);
+    await Product.insertMany(products);
 
     console.log("Products Added");
 

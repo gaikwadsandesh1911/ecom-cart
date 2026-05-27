@@ -51,9 +51,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-container">
+
         <div className="navbar__logo">
           <Link to="/" className="logo">
-            EcomCart
+            E-cart
           </Link>
         </div>
 

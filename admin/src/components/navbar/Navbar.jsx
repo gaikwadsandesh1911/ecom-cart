@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="heading">
-        <h1>Ecom cart</h1>
+        <h1>E-cart</h1>
         <p>admin</p>
       </div>
       {isAuthenticated && (

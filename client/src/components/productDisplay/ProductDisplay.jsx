@@ -3,25 +3,27 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../../api/productApi";
 import ProductCard from "../productCard/ProductCard";
 import { useEffect, useRef } from "react";
-const ProductDisplay = () => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isError,
-  } = useInfiniteQuery({
-    queryKey: [`products`],
-    queryFn: fetchProducts,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      // here we got actual backend response at variable lastpage
-      // console.log("lastPage", lastPage)
-      return lastPage.currentPage < lastPage.totalPages
-        ? lastPage.currentPage + 1
-        : undefined;
-    },
-  });
+const ProductDisplay = ({ search, category, sort }) => {
+  console.log({ search, category, sort });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
+    useInfiniteQuery({
+      queryKey: [`products`, search, category, sort],
+      queryFn: ({ pageParam }) =>
+        fetchProducts({
+          pageParam,
+          search,
+          category,
+          sort,
+        }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        // here we got actual backend response at variable lastpage
+        // console.log("lastPage", lastPage)
+        return lastPage.currentPage < lastPage.totalPages
+          ? lastPage.currentPage + 1
+          : undefined;
+      },
+    });
 
   // console.log("fetchProduct data", data);
   const products = data?.pages.flatMap((page) => page.productList);
@@ -56,13 +58,12 @@ const ProductDisplay = () => {
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  if(isError) {
-    return <p>Something went wrong...</p>
+  if (isError) {
+    return <p>Something went wrong...</p>;
   }
 
   return (
     <div className="product-display" id="product-display">
-      
       {products && (
         <div className="product-list">
           {products.map((product) => (
@@ -72,7 +73,6 @@ const ProductDisplay = () => {
       )}
 
       <div ref={bottomRef}></div>
-
       {isFetchingNextPage && <p>Loading...</p>}
     </div>
   );

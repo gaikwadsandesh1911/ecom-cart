@@ -148,7 +148,7 @@ const allOrders = asyncErrorHandler(async (req, res, next) => {
     .sort({ createdAt: -1 })
     .lean();
 
-  console.log("orders", orders);
+  // console.log("all-orders", orders);
 
   return res.status(200).json({
     success: true,
