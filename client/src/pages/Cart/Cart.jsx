@@ -5,12 +5,13 @@ import {
   getCartDetails,
   decreaseCartQuantity,
   increaseCartQuantity,
-} from "../../api/cartApi";
+} from "../../api/cartApi.js";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Cart = () => {
+
   // get cart details
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["cart"],
@@ -47,6 +48,7 @@ const Cart = () => {
     onSettled: () => {
       setRemovingId(null);
     },
+
   });
 
   // increase quantity
@@ -67,7 +69,6 @@ const Cart = () => {
   // decrease quantiy
   const { mutate: decreaseQty } = useMutation({
     mutationFn: decreaseCartQuantity,
-
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cart"],
@@ -105,33 +106,33 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div key={item?.productId} className="cart-card">
                 <img
-                  src={item.image.url}
-                  alt={item.name}
+                  src={item?.image?.url}
+                  alt={item?.name}
                   className="cart-image"
                 />
 
                 <div className="cart-info">
-                  <h2>{item.name}</h2>
+                  <h2>{item?.name}</h2>
 
                   <div className="price-section">
-                    <p>₹{item.finalPrice}</p>
-                    <p>{item.discount}%</p>
+                    <p>₹{item?.finalPrice}</p>
+                    <p>{item?.discount}%</p>
                     <p className="old-price">₹{item.price}</p>
                   </div>
 
                   <div className="quantity-container">
                     <button
-                      onClick={() => decreaseQty(item.productId)}
-                      disabled={item.quantity <= 1}
+                      onClick={() => decreaseQty(item?.productId)}
+                      disabled={item?.quantity <= 1}
                     >
                       -
                     </button>
 
-                    <span>{item.quantity}</span>
+                    <span>{item?.quantity}</span>
 
                     <button
-                      onClick={() => increaseQty(item.productId)}
-                      disabled={item.quantity >= item.stock || item.quantity == 3}
+                      onClick={() => increaseQty(item?.productId)}
+                      disabled={item?.quantity >= item?.stock || item?.quantity == 3}
                     >
                       +
                     </button>
@@ -139,16 +140,16 @@ const Cart = () => {
 
                   {item.stock <= 10 && (
                     <small className="hurry-up">
-                      Hurry only {item.stock} products available
+                      Hurry only {item?.stock} products available
                     </small>
                   )}
 
                   <button
                     className="remove-btn"
-                    onClick={() => removeItem(item.productId)}
-                    disabled={removingId === item.productId}
+                    onClick={() => removeItem(item?.productId)}
+                    disabled={removingId === item?.productId}
                   >
-                    {removingId === item.productId ? "Removing..." : "Remove"}
+                    {removingId === item?.productId ? "Removing..." : "Remove"}
                   </button>
                 </div>
               </div>

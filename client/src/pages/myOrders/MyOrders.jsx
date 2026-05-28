@@ -17,7 +17,7 @@ const MyOrders = () => {
     });
 
   const orders = data?.pages.flatMap((page) => page.orders) || [];
-  console.log('orders', orders);
+  // console.log('orders', orders);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

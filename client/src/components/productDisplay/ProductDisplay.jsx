@@ -4,7 +4,7 @@ import { fetchProducts } from "../../api/productApi";
 import ProductCard from "../productCard/ProductCard";
 import { useEffect, useRef } from "react";
 const ProductDisplay = ({ search, category, sort }) => {
-  console.log({ search, category, sort });
+  // console.log({ search, category, sort });
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
     useInfiniteQuery({
       queryKey: [`products`, search, category, sort],
@@ -27,7 +27,7 @@ const ProductDisplay = ({ search, category, sort }) => {
 
   // console.log("fetchProduct data", data);
   const products = data?.pages.flatMap((page) => page.productList);
-  console.log("products", products);
+  // console.log("products", products);
 
   const bottomRef = useRef();
 

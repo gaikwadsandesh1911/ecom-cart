@@ -6,16 +6,10 @@ import "./login.css";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/userApi";
-
 import { useDispatch } from "react-redux";
-
 import { setUser } from "../../features/auth/authSlice";
 
-import { useQueryClient } from "@tanstack/react-query";
-
 function Login() {
-  const queryClient = useQueryClient();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -33,19 +27,17 @@ function Login() {
   };
 
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const { isPending, mutate } = useMutation({
     mutationFn: loginUser,
+
     onSuccess: (data) => {
-      // console.log("loginUser:", data);
-
+      console.log("loginUser:", data);
       // dispatch to redux store
-      dispatch(setUser(data.user));
 
-      queryClient.invalidateQueries({
-        queryKey: ["current-user"],
-      });
+      dispatch(setUser(data.user));
 
       toast.success(`welcome ${data?.user?.name}`);
 
@@ -57,6 +49,7 @@ function Login() {
 
       navigate("/");
     },
+
     onError: (error) => {
       // console.log("loginError", error);
       toast.error(error);
@@ -102,7 +95,7 @@ function Login() {
           </div>
           <div>
             <button type="submit" disabled={isPending}>
-              {isPending ? "Loggin in..." : "Login"}
+              {isPending ? "Logging in..." : "Login"}
             </button>
           </div>
         </form>

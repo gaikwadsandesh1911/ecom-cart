@@ -7,7 +7,7 @@ export const fetchProducts = async ({
   sort = "",
 }) => {
 
-  console.log('productApi: =>',{category})
+  // console.log('productApi: =>',{category})
   const res = await axiosInstance.get(`/api/product/product-list`, {
     params: {
       page: pageParam,

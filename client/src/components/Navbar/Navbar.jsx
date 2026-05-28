@@ -1,4 +1,4 @@
-import './Navbar.css'
+import "./Navbar.css";
 import { assets } from "../../assets/assets.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ const Navbar = () => {
     mutationFn: logoutUser,
     onSuccess: (data) => {
       // console.log("logout data =>", data);
+
       // clear redux
       dispatch(clearUser());
 
@@ -29,8 +30,14 @@ const Navbar = () => {
         queryKey: ["current-user"],
       });
 
+      // clear cache also
+      queryClient.removeQueries({
+        queryKey: ["cart"],
+      });
+
+      navigate("/", { replace: true });
+
       toast.success(data.message);
-      navigate("/");
     },
     onError: (error) => {
       // console.log("logout error =>", error);
@@ -51,7 +58,6 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-container">
-
         <div className="navbar__logo">
           <Link to="/" className="logo">
             E-cart
